@@ -1,8 +1,9 @@
 class ContactsController < ApplicationController
-before_action :authenticate_user!, only:[:index, :show]
-  def new
-  	@newcontact = Contact.new
-  end
+before_action :authenticate_user!
+before_action :update, only:[:show]
+  #def new
+  #	@newcontact = Contact.new
+  #end
 
   def create
   	@newcontact = Contact.new(contact_params)
@@ -13,11 +14,20 @@ before_action :authenticate_user!, only:[:index, :show]
   end
 
   def index
-  	@contact = Contact.all.reverse_order
+  	#@contacts = Contact.all.reverse_order
+    @contacts = Contact.where(user_id: current_user.id).all.reverse_order
   end
 
   def show
   	@contact = Contact.find(params[:id])
+  end
+
+  def update
+     @contact = Contact.find(params[:id])
+     if @contact.re_question? && @contact.read_flg == true
+        @contact = false
+        @contact.save
+     end
   end
 
 private

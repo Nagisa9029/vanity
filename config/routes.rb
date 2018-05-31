@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   get '/studys/gold' => 'gold'
   get '/studys/gold' => 'platinum'
 
-  resources :contacts, only: [:new, :create, :update, :index, :show]
+  resources :contacts, only: [:create, :update, :index, :show]
 
   resources :commons
   resources :books

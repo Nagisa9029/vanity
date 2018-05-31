@@ -214,8 +214,9 @@ body {
 }
 #floatWindow a.close{
   position:absolute;
-  right:20px;
-  top:1px;
+  right:70px;
+  bottom:80px;
+  font-size: 40px;
 }
 #floatWindow dl{
   width:100%;
@@ -223,14 +224,14 @@ body {
   margin:0;
 }
 #floatWindow dl dt{
-  height:25px;
+  height:30px;
   line-height:25px;
   text-indent:1em;
   color:black;
   font-weight:bold;
 }
 #floatWindow dl dd{
-  margin:0;
+  margin-top:90px;
   padding:2em;
   line-height:1.5;
   text-indent:1em;
