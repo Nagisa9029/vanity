@@ -1,0 +1,45 @@
+<% breadcrumb :following, @user %>
+<div class="row">
+  <div class="col-xs-9">
+  	<h1 style="font-size: 36px;">My Follow User List</h1>
+  	<hr>
+
+
+    <table class = "table table-hover" style="margin-top: 0;">
+	    <thead>
+	  	  <tr class="">
+	  	    <th></th>
+	  	    <th>AvatarName<br>
+	  	        (UserName)
+          </th>
+	  	    <th>Community<br>投稿件数</th>
+	        <th>Gourmet<br>投稿件数</th>
+          <th></th>
+	  	  </tr>
+	    </thead>
+	    <tbody>
+        <% @user.following.each do |user| %>
+          <tr>
+            <td><%= attachment_image_tag user, :image, width: "50", height: "50", class: "img-circle", fallback: "blackNeko.png" %>
+            </td>
+            <td>
+              <%= link_to user_path(user) do %>
+            	  <%= user.nickname %><br>
+            	  @<%= user.username %>
+            	<% end %>
+            </td>
+            <td><%= "#{user.posts.count}" %>件</td>
+            <td><%= "#{user.gourmets.count}" %>件</td>
+            <td><%= form_for(current_user.active_relationships.find_by(following_id: user.id), html: { method: :delete }) do |f| %>
+                  <%= f.submit "Unfollow", class: "btn btn-smole btn-radius" %>
+                <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>
+

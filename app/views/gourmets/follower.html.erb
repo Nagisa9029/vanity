@@ -1,0 +1,21 @@
+<% breadcrumb :gourmetFollower %>
+<div class="row">
+  <div class="col-xs-9">
+  	<span style="font-size: 36px;">Gourmets / Followers</span>
+    <span class="pull-right">
+      <a class="btn btn-medium btn-radius btn-color02 btn-hover02" href="#" data-toggle="modal" data-target="#gourmetModal">
+        <span class="btn-text">オススメ投稿</span>
+        <span class="btn-bg"></span>
+      </a>
+      <a class="btn btn-medium btn-radius btn-color00 btn-hover00" href="/gourmets/gourmetrule" >
+        <span class="btn-text">オススメの極意</span>
+        <span class="btn-bg"></span>
+      </a>
+    </span>
+    <hr>
+
+    <%= render partial: "gourmets/index" %>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

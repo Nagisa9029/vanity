@@ -1,0 +1,33 @@
+
+<div class="row">
+  <div class="col-xs-9">
+  	<span style="font-size: 36px;">Account</span>
+  	<hr>
+
+
+    <div class="row">
+      <div class="col-xs-3">
+        <%= attachment_image_tag @user, :image, width: "150", height: "150", class: "img-circle", fallback: "blackNeko.png" %>
+      </div>
+      <div class="col-xs-9">
+        <label>Name</label><br>
+          <%= @user.username %><br>
+        <label>Avatar Name</label><br>
+          <%= @user.nickname %><br>
+      </div>
+    </div>
+
+    <div class="box-user">
+    <div class="row", style="padding: 20px; background: url(images/bg3.jpg);">
+      <div class="col-xs-2">
+          <div>Profile ：</div>
+      </div>
+      <div class="col-xs-10">
+          <%= simple_format @user.profile %>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

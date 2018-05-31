@@ -67,3 +67,5 @@ gem 'kaminari'
 gem 'ransack'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
+gem "nested_form"
+gem 'gretel'

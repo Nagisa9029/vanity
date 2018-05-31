@@ -1,0 +1,486 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+a {
+  text-decoration: none;
+}
+body {
+  background: #ffffff;
+  color: #91966E;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Times New Roman','Segoe UI','Kaiti SC','Yu Mincho Light','YuMincho','Yu Mincho','游明朝体',sans-serif;
+  font-weight: 100;
+  font-size: 20px;
+}
+.container{
+}
+.mainBody{
+    line-height: 1.6;
+    padding-top: 0px;
+    padding-bottom: 50px;
+    min-height: 973px;
+}
+
+
+.l-side{
+  background: #333;
+  padding-bottom: 0px;
+  border-radius: 5px;
+}
+.nav {
+  display: block;
+  text-decoration: none;
+}
+.nav-item {
+  border-bottom: 1px solid #444;
+}
+.nav-title {
+  display: block;
+  font-size: 20px;
+  background: #333;
+  line-height: 34px;
+  cursor: pointer;
+  color: #fff;
+  padding: 0 0px;
+  text-decoration: none;
+}
+.nav-title:hover{
+  background: #444;
+}
+.nav-title.is-active{
+  border-left: 5px solid #1c6;
+  padding-left: 9px;
+}
+.panel{
+  display: none;
+}
+.panel-item a{
+  display: block;
+  font-size: 17px;
+  background: #333;
+  line-height: 30px;
+  color: #fff;
+  text-decoration: none;
+  padding: 0 14px;
+}
+.panel-item a:hover{
+ background: #777;
+}
+
+
+
+
+.sidbar{
+  background-image: url(sidbar.svg);
+  height: 680px;
+  justify-content: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 65px;
+}
+.sidbar-menu{
+  font-family: 'SignPainter','Segoe Script','Party LET',sans-serif;
+  margin: 120px 0 0 25px;
+  font-size: 45px;
+}
+.sidmenu-item {
+  color: #fff;
+  width: 100%;
+  padding: 0 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.kanban{
+  background-image: url(neko.png);
+  width: 140px;
+  height: 150px;
+
+}
+.about{
+  width: 100%;
+}
+
+.hero{
+    height: 150px;
+    overflow: hidden;
+}
+.header-top{
+    width: 100%;
+}
+.hero img{
+    height: 150px;
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+    position: absolute;
+}
+
+.menu-item {
+  color: black;
+  width: 100%;
+  padding: 1rem 3rem;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.menu-item:hover {
+  background: #91966E;
+  cursor: pointer;
+}
+
+.header-change{
+    background: rgba( 0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: fixed;
+    top: -150px;
+    transition: .5s;
+    width: 100%;
+    z-index: 10000;
+}
+.header-change.show{
+    top: 0;
+}
+.header-change .gnav__menu__item a{
+    color: #fff;
+    text-decoration: none;
+}
+.gnav__menu{
+    display: flex;
+}
+.gnav__menu__item{
+    margin-left: 20px;
+}
+.gnav__menu__item a{
+    color: #333;
+    text-decoration: none;
+}
+
+
+.site-footer{
+    background: #333;
+    padding: 100px 0;
+}
+.fotter-text{
+    font-size: 12px;
+}
+.site-footer p{
+  font-size: 25px;
+  color: #fff;
+  text-decoration: none;
+}
+
+
+
+/*辞書呼び出しボタン一式*/
+#pagetopBtn{
+  width: 460px;
+  position: fixed;
+  top: -50px;
+  right: -150px;
+  text-align: right;
+}
+#floatWindow{
+  display:none;
+  position:absolute;
+  background-size: cover;
+  width:500px;
+  height:370px;
+  bottom:0px;
+  right:20px;
+  background-image: url(book01.png);
+  position: fixed;
+  margin: 2em 0;
+  box-shadow: 0 10px 4px rgba(0, 0, 0, 0.22);
+  z-index: 10000;
+}
+#floatWindow a.close{
+  position:absolute;
+  right:20px;
+  top:1px;
+}
+#floatWindow dl{
+  width:100%;
+  height:100%;
+  margin:0;
+}
+#floatWindow dl dt{
+  height:25px;
+  line-height:25px;
+  text-indent:1em;
+  color:black;
+  font-weight:bold;
+}
+#floatWindow dl dd{
+  margin:0;
+  padding:2em;
+  line-height:1.5;
+  text-indent:1em;
+}
+
+/*ボタン設定*/
+.btn {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+          transition: all 0.3s;
+  border: 1px solid #000000;
+  margin: 7px 0 0px 20px;
+  overflow: hidden;
+}
+.btn.btn-smole{
+    width: 90px;
+    margin: 0 auto;
+}
+.btn.btn-medium {
+    width: 170px;
+}
+.btn.btn-large{
+    width: 500px;
+    margin: 0 auto;
+}
+.btn .btn-text {
+    color: #000000;
+    position: relative;
+    z-index: 2;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 0 0 10px 0;
+}
+.btn .btn-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.btn.btn-radius {
+    border-radius: 30px;
+}
+.btn.btn-color00 {
+    border: 1px solid #DDDDDD;
+}
+.btn.btn-hover00 {
+    background-color: #440000;
+    -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+}
+.btn.btn-hover00 .btn-text {
+    color: #EEEEEE;
+}
+.btn.btn-hover00:hover {
+    opacity: 0.7;
+    -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+}
+.btn.btn-color01 {
+    border: 1px solid #DDDDDD;
+}
+.btn.btn-hover01 {
+    background-color: #0000EE;
+    opacity: 1;
+    -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+}
+.btn.btn-hover01 .btn-text {
+      color: #EEEEEE;
+}
+.btn.btn-hover01:hover {
+      opacity: 0.7;
+      -webkit-transition: all 0.3s;
+              transition: all 0.3s;
+}
+.btn.btn-color02 {
+    border: 1px solid #DDDDDD;
+}
+.btn.btn-hover02 {
+    background-color: #c92ad2;
+    opacity: 1;
+    -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+}
+.btn.btn-hover02 .btn-text {
+      color: #fff;
+}
+.btn.btn-hover02:hover {
+      opacity: 0.7;
+      -webkit-transition: all 0.3s;
+              transition: all 0.3s;
+}
+.btn.btn-color03 {
+    border: 1px solid #DDDDDD;
+}
+.btn.btn-hover03 {
+    background-color: #FFFF33;
+    opacity: 1;
+    -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+}
+.btn.btn-hover03 .btn-text {
+      color: #333333;
+}
+.btn.btn-hover03:hover {
+      opacity: 0.7;
+      -webkit-transition: all 0.3s;
+              transition: all 0.3s;
+}
+.btn.btn-color04 {
+    border: 1px solid #00AB7C;
+}
+.btn.btn-color04 .btn-text {
+      color: #00AB7C;
+}
+.btn.btn-hover04 .btn-bg {
+    width: 0;
+    height: 100%;
+    background-color: #00AB7C;
+    -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+}
+.btn.btn-hover04:hover .btn-text {
+    color: #FFFFFF;
+    -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+}
+.btn.btn-hover04:hover .btn-bg {
+    width: 100%;
+    -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+}
+
+.balloon1-top {
+  position: absolute;
+  display: inline-block;
+  margin: 1.5em 0;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #fff;
+  font-size: 16px;
+  background: #00AB7C;
+  top: 50px;
+  right: 20px;
+  border-radius: 10px;
+}
+.balloon1-top:before{
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 80%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-bottom: 25px solid #00AB7C;
+}
+.balloon1-top p {
+  margin: 0;
+  padding: 0;
+}
+
+
+.sub{
+  margin: 30px 0 20px 0;
+}
+.sub .swiper-wrapper {
+  align-items: stretch;
+}
+.sub .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding-bottom: 25px;
+}
+.sub .sub-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 130px;
+}
+.sub .swiper-button-prev,
+.sub .swiper-button-next {
+  display: none;
+  width: 10px;
+  height: 10px;
+  fill: #666;
+  stroke: none;
+  stroke-width: 0;
+  background-image: none;
+  z-index: 20000;
+}
+.sub .swiper-container-horizontal > .swiper-pagination-bullets {
+  bottom: 0;
+}
+.sub .swiper-pagination-bullet-active {
+  background: #666;
+}
+
+
+.home .swiper-wrapper {
+  align-items: stretch;
+}
+.home .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding-bottom: 25px;
+}
+.home .home-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 400px;
+}
+
+.home .swiper-button-prev,
+.home .swiper-button-next {
+  display: none;
+  width: 20px;
+  height: 32.58px;
+  fill: #666;
+  stroke: none;
+  stroke-width: 0;
+  background-image: none;
+  z-index: 10000;
+}
+.home .swiper-container-horizontal > .swiper-pagination-bullets {
+  bottom: 0;
+}
+.home .swiper-pagination-bullet-active {
+  background: #666;
+}
+@media (min-width: 768px) {
+  .home .swiper-slide {
+    padding: 50px;
+  }
+  .home .swiper-button-prev,
+  .home .swiper-button-next {
+    display: block;
+  }
+  .home .swiper-container-horizontal > .swiper-pagination-bullets {
+    bottom: 10px;
+  }
+}
+
+

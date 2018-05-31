@@ -1,0 +1,13 @@
+<%= search_form_for @search do |f| %>
+  <span class="input-group">
+    <%= f.text_field :word_or_body_cont, :size=>"40",style: "margin: 8px 0;", placeholder: "検索なんでも" %>
+    <button type="submit">
+      <a href="/books" target="_blank"><i class="glyphicon glyphicon-search" ></i></a>
+    </button>
+  </span>
+<% end %>
+<% @books.each do |book| %>
+  <label>単語: </label><%= book.word %><br>
+  <label>簡易版: </label><%= book.meaning %><br>
+  label>簡易版: </label><%= book.body %><br>
+<% end %>

@@ -1,0 +1,51 @@
+
+
+/*コンテンツ全体の設定*/
+div#contents {
+	width: 920px;
+	height: 660px;
+	padding: 20px;
+	background: url(images/bg2.jpg) repeat;
+	position: absolute;
+	margin: 0 0 0 -480px;
+	left: 50%;
+	top: 300px;
+	-moz-box-shadow: 0 0 50px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+h6 {
+	width: 130px;
+	height: 600px;
+	position: absolute;
+	right: 20px;
+	top: 19px;
+	padding: 30px 0 0 50px;
+	background: url(images/bg3.jpg) repeat;
+}
+/*アコーディオン部分の設定*/
+ul#contentsList {
+	width: 760px;
+	margin: 9px 0 0 0;
+}
+
+ul#contentsList li {
+	width: 460px;
+	position: relative;
+	background: url(images/bg3.jpg) repeat;
+	overflow: visible;
+}
+ul#contentsList li h2 {
+	position: absolute;
+	right: -0;
+	top: 0;
+	height: 400px;
+	padding: 50px 15px 0 0;
+	border-right: 1px solid #ccc;
+	background: url(images/mark.png) no-repeat 1px 20px;
+}
+ul#contentsList li.frame-open h2 {
+	background: url(images/mark2.png) no-repeat 1px 20px;
+}
+ul#contentsList li.contentMidashi{
+	font-size: 50px;
+}

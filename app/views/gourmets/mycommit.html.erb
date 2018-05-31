@@ -1,0 +1,43 @@
+<% breadcrumb :gourmetCommit %>
+<div class="row">
+  <div class="col-xs-9">
+  	<span style="font-size: 36px;">Gourmets / MyCommit</span>
+    <span class="pull-right">
+      <a class="btn btn-medium btn-radius btn-color02 btn-hover02" href="#" data-toggle="modal" data-target="#gourmetModal">
+        <span class="btn-text">オススメ投稿</span>
+        <span class="btn-bg"></span>
+      </a>
+      <a class="btn btn-medium btn-radius btn-color00 btn-hover00" href="/gourmets/gourmetrule" >
+        <span class="btn-text">オススメの極意</span>
+        <span class="btn-bg"></span>
+      </a>
+    </span>
+    <hr>
+
+
+    <table class = "table table-hover" style="margin-top: 0;">
+      <thead>
+        <tr class="">
+          <th>投稿日</th>
+          <th>タイトル</th>
+          <th>新規コメント</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @gourmets.each do |gourmet| %>
+          <tr>
+            <td><%= gourmet.created_at.strftime('%b %d, %Y') %></td>
+            <td>
+              <%= link_to post_path(gourmet) do %>
+                <%= gourmet.name %>
+              <% end %>
+            </td>
+            <td><%= "#{gourmet.gourmetcomments.where(read_flg: true).count}" %>件</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

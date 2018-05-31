@@ -6,9 +6,356 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="drawer drawer--right">
+  	<header role="banner">
+      <div class="hero"><a href="/"><%= image_tag ('top.svg') %></a></div>
+
+      <button type="button" class="drawer-toggle drawer-hamburger">
+        <span class="sr-only">toggle navigation</span>
+        <span class="drawer-hamburger-icon"></span>
+      </button>
+      <% if user_signed_in? %>
+      <% else %>
+        <div class="balloon1-top">
+          <p>Click Here !! (^ ^)</p>
+        </div>
+      <% end %>
+
+  <!-- Humberger -->
+      <nav class="drawer-nav" role="navigation">
+
+        <% if user_signed_in? %>
+
+          <!--:Re コメント既読件数計算（post)-->
+          <% @posts = Post.where(user_id: current_user.id) %>
+          <% totalP_count = 0 %>
+          <% @posts.each do |post| %>
+            <% totalP_count += post.comments.where(read_flg: true).count %>
+          <% end %>
+
+          <!--:Re コメント既読件数計算（Gourmet)-->
+          <% @gourmets = Gourmet.where(user_id: current_user.id) %>
+          <% totalG_count = 0 %>
+          <% @gourmets.each do |gourmet| %>
+            <% totalG_count += gourmet.gourmetcomments.where(read_flg: true).count %>
+          <% end %>
+
+              <% if current_user.platinum == true %>
+                <%= image_tag ('VanitySid.svg') %>
+              <% elsif current_user.gold == true %>
+                <%= image_tag ('VanitySidGold.svg') %>
+              <% elsif current_user.silver == true %>
+                <%= image_tag ('VanitySidSilver.svg') %>
+              <% elsif current_user.bronze == true %>
+                <%= image_tag ('VanitySidBronze.svg') %>
+              <% else %>
+                <%= image_tag ('VanitySidNormal.svg') %>
+              <% end %>
+          <div class="row">
+            <div class="col-xs-5">
+              <div class="kanban">
+                <div style="padding: 70px 0 0 40px;"><%= attachment_image_tag User.find(current_user.id), :image, width: "80", height: "75", class: "img-circle", fallback: "blackNeko.png" %>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-7">
+              <div style="margin: 30px 0 0 20px;">
+                <label>Name : </label><br>
+                <%= User.find(current_user.id).username %><br>
+                <label>Avatar Name : </label><br>
+                <%= User.find(current_user.id).nickname %><br>
+              </div>
+            </div>
+          </div>
+          <div class='', style="margin-top: 10px;"">
+            <div style="text-align: center; font-size: 30px;">My MENU</div>
+          </div>
+          <div class="l-side">
+            <nav>
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-title js−accordion" href="#">My Account</a>
+                  <ul class="panel js−accordion-panel">
+                    <li class="panel-item"><a href="/users/<%= current_user.id %>">アカウント詳細</a></li>
+                    <li class="panel-item"><a href="/users/<%= current_user.id %>/edit">アカウント編集</a></li>
+                    <li class="panel-item"><a href="/users/">グルメユーザー検索</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title js−accordion" href="#">
+                    <% if totalP_count != 0 %>
+                      <span style="background: #fff; color: black; border-radius: 30px; padding: 4px 4px 4px 8px;"><%= totalP_count %>
+                      </span>
+                    <% end %>
+                    My Community
+                  </a>
+                  <ul class="panel js−accordion-panel">
+                    <li class="panel-item"  data-toggle="modal" data-target="#postModal"><a href="#">新規投稿</a></li>
+                    <li class="panel-item">
+                      <a href="/posts/mycommit">
+                        <% if totalP_count != 0 %>
+                          <span style="background: #fff; color: black; border-radius: 30px; padding: 4px 4px 4px 8px;"><%= totalP_count %>
+                          </span>
+                          <% end %>
+                        Myコミュ(投稿記事）
+                      </a>
+                    </li>
+                    <li class="panel-item">
+                    <a href="/posts/follower">Myコミュニティー(Follower)</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title js−accordion" href="#">
+                    <% if totalG_count != 0 %>
+                      <span style="background: #fff; color: black; border-radius: 30px; padding: 4px 4px 4px 8px;"><%= totalG_count %>
+                      </span>
+                    <% end %>
+                    My Gourmet
+                  </a>
+                  <ul class="panel js−accordion-panel">
+                    <li class="panel-item"  data-toggle="modal" data-target="#gourmetModal"><a href="#">オススメ投稿</a></li>
+                    <li class="panel-item">
+                      <a href="/gourmets/mycommit">
+                        <% if totalG_count != 0 %>
+                          <span style="background: #fff; color: black; border-radius: 30px; padding: 4px 4px 4px 8px;"><%= totalG_count %>
+                          </span>
+                        <% end %>
+                        Myレストラン(投稿記事）
+                      </a>
+                    </li>
+                    <li class="panel-item">
+                      <a href="/gourmets/follower">Myコミュニティー(Follower)</a></li>
+                      <li class="panel-item"><a href="#">行ってみたい(気になる)お店</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title js−accordion" href="#">My Contact</a>
+                  <ul class="panel js−accordion-panel">
+                    <li class="panel-item"  data-toggle="modal" data-target="#contactModal" data-recipient="管理者"><a href="#">管理者(ソムリエ)へ質問</a></li>
+                    <li class="panel-item"><a href="/contacts">My質問リスト</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title glyphicon glyphicon-log-out" href="/users/sign_out" data-method="delete">logOut</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+
+        <% elsif admin_signed_in? %>
+          <%= image_tag ('VanitySid.svg') %>
+          <div class="row">
+            <div class="col-xs-5">
+              <div class="kanban">
+                <div style="padding: 70px 0 0 40px;">
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-7">
+              <div style="margin: 30px 0 0 20px;">
+                <label>Name : </label><br>
+                管理者<br>
+              </div>
+            </div>
+          </div>
+          <div class='', style="margin-top: 10px;"">
+            <div style="text-align: center; font-size: 30px;">MENU</div>
+          </div>
+          <div class="l-side">
+            <nav>
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-title js−accordion" href="#">Document</a>
+                  <ul class="panel js−accordion-panel">
+                    <li class="panel-item"><a href="/admins/books">Book</a></li>
+                    <li class="panel-item"><a href="/admins/commons">Common</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title" href="/admins/users">UserAcount</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title" href="/admins/posts">Community</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title" href="/admins/gourmets">Gourmet</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title" href="/admins/columns">Column</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title" href="/admins/contacts">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-title glyphicon glyphicon-log-out" href="/admins/sign_out" data-method="delete">logOut</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+
+        <% else %>
+          <%= image_tag ('VanitySid.svg') %>
+          <div class="sub">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="sub-inner">
+                    <%= image_tag ('wine/side01.png') %>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="sub-inner">
+                    <%= image_tag ('wine/side02.png') %>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="sub-inner">
+                    <%= image_tag ('wine/side03.png') %>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="sub-inner">
+                    <%= image_tag ('wine/side04.png') %>
+                  </div>
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <a href="/posts"><div class='menu-item'><span class="glyphicon glyphicon-refresh"></span> Community</div></a>
+          <a href="/gourmets"><div class='menu-item'><span class="glyphicon glyphicon-cutlery"></span> Gourmet</div></a>
+          <a href="/columns"><div class='menu-item'><span class="glyphicon glyphicon-pushpin"></span> Column</div></a>
+          <a href="/studys"><div class='menu-item'><span class="glyphicon glyphicon-book"></span> Study</div></a>
+          <a href="/about"><div class='menu-item'><span class="glyphicon glyphicon-leaf"></span> About</div></a>
+          <hr>
+
+          <div style="text-align: center;">
+          メンバー登録
+            <div style="background: rgba( 0, 0, 0, 0.1);">
+              <a href="/users/sign_up" class="">
+                <button type="button" class="btn", style="width: 220px; margin: 10px;  background: black; color: #fff;">
+                  新規メンバー登録
+                </button>
+              </a>
+              <a href="/users/sign_in" class="">
+                <button type="button" class="btn", style="width: 220px; margin: 10px; background: black; color: #fff;">
+                  ログイン
+                </button>
+              </a>
+            </div>
+          </div>
+
+        <% end %>
+      </nav>
+  <!--burger -->
+
+      <% if admin_signed_in? %>
+        <div class="header-bottom">
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid", style="width: 850px; left: 60%;">
+              <ul class="nav navbar-nav">
+                <li style="width: 160px;"><a href="/admins/posts"><span class="glyphicon glyphicon-refresh"></span> Community</a></li>
+                <li style="width: 160px;"><a href="/admins/gourmets"><span class="glyphicon glyphicon-cutlery"></span>  Gourmet</a></li>
+                <li style="width: 160px;"><a href="/admins/columns"><span class="glyphicon glyphicon-pushpin"></span>  Column</a></li>
+                <li style="width: 160px;"><a href="/studys"><span class="glyphicon glyphicon-book"></span>  Study</a></li>
+                <li style="width: 160px;"><a href="/about"><span class="glyphicon glyphicon-leaf"></span>  About</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      <% else %>
+        <div class="header-bottom">
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid", style="width: 850px; left: 60%;">
+              <ul class="nav navbar-nav">
+                <li style="width: 160px;"><a href="/posts"><span class="glyphicon glyphicon-refresh"></span> Community</a></li>
+                <li style="width: 160px;"><a href="/gourmets"><span class="glyphicon glyphicon-cutlery"></span>  Gourmet</a></li>
+                <li style="width: 160px;"><a href="/columns"><span class="glyphicon glyphicon-pushpin"></span>  Column</a></li>
+                <li style="width: 160px;"><a href="/studys"><span class="glyphicon glyphicon-book"></span>  Study</a></li>
+                <li style="width: 160px;"><a href="/about"><span class="glyphicon glyphicon-leaf"></span>  About</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      <% end %>
+    </header>
+
+
+    <div class="container">
+      <div class="mainBody">
+        <%= yield %>
+      </div>
+    </div>
+
+
+    <footer class="site-footer">
+      <div class="container footer-text">
+        <div class="">
+          <div class="col-xs-4", style='background: red;'>
+          <p><%= link_to "恋愛", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"恋愛", "commit"=>"Search" }}) %></p>
+          <p><%= link_to "ニュース", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"ニュース", "commit"=>"Search" }}) %></p>
+          <p><%= link_to "暮らし", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"暮らし", "commit"=>"Search" }}) %></p>
+          <p><%= link_to "イベント", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"イベント", "commit"=>"Search" }}) %></p>
+          <p><%= link_to "レストラン", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"レストラン", "commit"=>"Search" }}) %></p>
+          <p><%= link_to "レシピ", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"レシピ", "commit"=>"Search" }}) %></p>
+          <p><%= link_to "お勧め", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"お勧め", "commit"=>"Search" }}) %></p>
+          <p><%= link_to "その他", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"その他", "commit"=>"Search" }}) %></p>
+          </div>
+          <div class="col-xs-4">
+          </div>
+          <div class="col-xs-4", style='background: red;'>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Change Header（パンくずメニュー） -->
+    <ul class="header-change breadcrumb">
+      <%= breadcrumbs pretext: "You are here: ", separator: " &rsaquo; " %>
+    </ul>
+
+
+　　<!-- 簡易検索表示　-->
+    <% if user_signed_in? %>
+      <div id="pagetopBtn">
+        <a href="#floatWindow" class="open">
+          <%= image_tag ('images/pagetop.png'), width: "233", height: "50", alt: "ABC COMPANY" %>
+        </a>
+      </div>
+      <div id="floatWindow">
+        <a class="close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </a>
+        <dl>
+          <dt>簡易辞書（わからない専門用語は調べよう）</dt>
+          <dd>
+            <%= search_form_for @search_book do |f| %>
+              <span class="input-group">
+                <%= f.text_field :word_cont, :size=>"30",style: "margin: 8px 0;", placeholder: "わからない用語検索" %>
+                <button type="submit" formtarget="_blank">
+                  <a href="/books" target="_blank"><i class="glyphicon glyphicon-search" ></i></a>
+                </button> 
+              </span>
+            <% end %>
+          </dd>
+        </dl>
+      </div>
+    <% end %>
+
+
+  <!-- 各新規投稿フォーム　-->
+  <%= render partial: "layouts/newpost", nouveaupost: @nouveaupost %>
+  <%= render partial: "layouts/newgourmet", nouveaugourmet: @nouveaugourmet %>
+  <%= render partial: "layouts/newcontact", newcontact: @newcontact %>
+
   </body>
 </html>

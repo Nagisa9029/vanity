@@ -1,0 +1,7 @@
+<%= form_for(current_user.active_relationships.build) do |f| %>
+  <div><%= hidden_field_tag :following_id, @user.id %></div>
+  <button type="action" class="btn btn-medium btn-radius btn-color04 btn-hover04">
+    <span class="btn-text">Follow</span>
+    <span class="btn-bg"></span>
+  </button>
+<% end %>

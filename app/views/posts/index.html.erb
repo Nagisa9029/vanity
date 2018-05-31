@@ -1,0 +1,21 @@
+<% breadcrumb :posts %>
+<div class="row">
+  <div class="col-xs-9">
+    <span style="font-size: 36px;">Community</span>
+    <span class="pull-right">
+      <a class="btn btn-medium btn-radius btn-color01 btn-hover01" href="#" data-toggle="modal" data-target="#postModal">
+        <span class="btn-text">新規つぶやき</span>
+        <span class="btn-bg"></span>
+      </a>
+      <a class="btn btn-medium btn-radius btn-color00 btn-hover00" href="/posts/postrule" >
+        <span class="btn-text">つぶやき心得</span>
+        <span class="btn-bg"></span>
+      </a>
+    </span>
+    <hr>
+
+  <%= render partial: "posts/index" %>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

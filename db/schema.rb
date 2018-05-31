@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512041817) do
+ActiveRecord::Schema.define(version: 20180530164654) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -34,10 +34,22 @@ ActiveRecord::Schema.define(version: 20180512041817) do
     t.string "meaning"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "body"
+    t.text "image_id"
+    t.string "category"
+  end
+
+  create_table "columnimages", force: :cascade do |t|
+    t.text "image_id"
+    t.integer "column_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "subtitle"
+    t.text "subbody"
+    t.index ["column_id"], name: "index_columnimages_on_column_id"
   end
 
   create_table "columns", force: :cascade do |t|
-    t.text "image_id"
     t.string "c_title"
     t.text "c_body"
     t.string "c_category"
@@ -54,8 +66,20 @@ ActiveRecord::Schema.define(version: 20180512041817) do
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "read_flg"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "commons", force: :cascade do |t|
+    t.text "image_id"
+    t.string "common_title"
+    t.text "common_body"
+    t.string "common_category"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_commons_on_user_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -65,6 +89,7 @@ ActiveRecord::Schema.define(version: 20180512041817) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "read_flg"
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
@@ -77,8 +102,78 @@ ActiveRecord::Schema.define(version: 20180512041817) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "gourmetcomments", force: :cascade do |t|
+    t.text "g_comment"
+    t.integer "user_id"
+    t.integer "gourmet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "read_flg"
+    t.index ["gourmet_id"], name: "index_gourmetcomments_on_gourmet_id"
+    t.index ["user_id"], name: "index_gourmetcomments_on_user_id"
+  end
+
+  create_table "gourmetfavorites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "gourmet_id"
+    t.index ["gourmet_id"], name: "index_gourmetfavorites_on_gourmet_id"
+    t.index ["user_id"], name: "index_gourmetfavorites_on_user_id"
+  end
+
+  create_table "gourmetimages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "image_id"
+    t.integer "gourmet_id"
+    t.index ["gourmet_id"], name: "index_gourmetimages_on_gourmet_id"
+  end
+
+  create_table "gourmets", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "name_kana"
+    t.string "category"
+    t.date "tel"
+    t.string "postal_code"
+    t.string "address"
+    t.string "street"
+    t.string "url"
+    t.text "pr"
+    t.boolean "g_flg"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_gourmets_on_user_id"
+  end
+
+  create_table "loves", force: :cascade do |t|
+    t.integer "column_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["column_id"], name: "index_loves_on_column_id"
+    t.index ["user_id"], name: "index_loves_on_user_id"
+  end
+
+  create_table "populars", force: :cascade do |t|
+    t.integer "gourmet_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gourmet_id"], name: "index_populars_on_gourmet_id"
+    t.index ["user_id"], name: "index_populars_on_user_id"
+  end
+
+  create_table "postimages", force: :cascade do |t|
+    t.text "image_id"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_postimages_on_post_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
     t.string "p_title"
     t.text "p_body"
     t.string "p_category"
@@ -86,6 +181,16 @@ ActiveRecord::Schema.define(version: 20180512041817) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "following_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id", "following_id"], name: "index_relationships_on_follower_id_and_following_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+    t.index ["following_id"], name: "index_relationships_on_following_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,11 +206,15 @@ ActiveRecord::Schema.define(version: 20180512041817) do
     t.string "last_sign_in_ip"
     t.string "username"
     t.string "nickname"
-    t.string "avatar"
     t.string "profile"
     t.boolean "user_flg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "image_id"
+    t.boolean "bronze"
+    t.boolean "silver"
+    t.boolean "gold"
+    t.boolean "platinum"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
