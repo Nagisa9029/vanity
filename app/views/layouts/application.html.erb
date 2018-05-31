@@ -43,6 +43,15 @@
             <% totalG_count += gourmet.gourmetcomments.where(read_flg: true).count %>
           <% end %>
 
+          <!--:Re コメント既読件数計算（Contact)-->
+          <% @contacts = Contact.where(user_id: current_user.id) %>
+          <% @contacts.each do |contact| %>
+            <% if contact.re_question? && contact.read_flg == true %>
+              <%= image_tag ('font/mail4.svg') %>
+            <% end %>
+          <% end %>
+
+
               <% if current_user.platinum == true %>
                 <%= image_tag ('VanitySid.svg') %>
               <% elsif current_user.gold == true %>
@@ -333,14 +342,14 @@
         </a>
       </div>
       <div id="floatWindow">
-        <a class="close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <a class="close">Closed<%= image_tag ('font/cancel-circle.svg') %>
         </a>
         <dl>
-          <dt>簡易辞書（わからない専門用語は調べよう）</dt>
+          <dt></dt>
           <dd>
             <%= search_form_for @search_book do |f| %>
               <span class="input-group">
-                <%= f.text_field :word_cont, :size=>"30",style: "margin: 8px 0;", placeholder: "わからない用語検索" %>
+                <%= f.text_field :word_cont, :size=>"33",style: "margin: 8px 0;", placeholder: "チョコっとカンニング(( _ _ ))..zzzZZ" %>
                 <button type="submit" formtarget="_blank">
                   <a href="/books" target="_blank"><i class="glyphicon glyphicon-search" ></i></a>
                 </button> 
