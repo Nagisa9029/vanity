@@ -1,0 +1,35 @@
+
+<div class="row">
+  <div class="col-xs-9">
+  	<h1>Columns</h1>
+  	<hr>
+
+    <% @columns.each do |column| %>
+    <div class="row">
+      <div class="col-xs-4">
+        <%= link_to admins_column_path(id: column) do %>
+      	  <% columnimage = Columnimage.find_by(column_id: column.id) %>
+          <%= attachment_image_tag columnimage, :image, style:"width:100%;", format: 'jpeg'%>
+        <% end %>
+      </div>
+      <div class="col-xs-8">
+
+      <div class="pull-right">
+        <button type="button" class="btn btn-medium btn-radius" >
+          <%= link_to "投稿削除", admins_column_path(column), method: :delete  %>
+        </button>
+      </div>
+      <div style="border-left: 5px solid #FFC7AF;"><%= column.created_at.strftime('%b %d, %Y') %></div>
+        <%= column.c_category %><br>
+        <%= link_to admins_column_path(id: column) do %>
+          <h3 style="color: black;"><%= column.c_title %></h3>
+        <% end %>
+      </div>
+    </div>
+
+
+    <hr>
+    <% end %>
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

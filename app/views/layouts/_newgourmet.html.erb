@@ -1,0 +1,73 @@
+<div class="modal fade" id="gourmetModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header", style="background: #FFBBFF;">
+        <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="title">オススメレストラン投稿</h4>
+      </div>
+
+      <% nouveaugourmet = Gourmet.new %>
+      <%= nested_form_for(nouveaugourmet) do |f| %>
+        <table style="margin: 30px;">
+          <tr height="50">
+            <th><%= f.label :店名 %></th>
+            <td><%= f.text_field :name, :size => "70", required: true %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :店名（カナ） %></th>
+            <td><%= f.text_field :name_kana, :size => "70" %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :ジャンル %></th>
+            <td><%= f.select :category, [["フレンチ", "フレンチ"], ["イタリアン", "イタリアン"], ["和食", "和食"], ["創作", "創作"], ["その他", "その他"]] ,class:"form-control" %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :TEL %></th>
+            <td><%= f.text_field :tel, :size => "" %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :〒 %></th>
+            <td><%= f.text_field :postal_code, :size => "" %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :住所 %></th>
+            <td><%= f.text_field :address, :size => "" %>
+                <%= f.text_field :street, :size => "48" %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :公式HP等 %></th>
+            <td><%= f.text_field :url, :size => "70" %></td>
+          </tr>
+          <tr height="50">
+            <th valign="top"><%= f.label :詳細 %></th>
+            <td><%= f.text_area :pr, :size => "70x20", required: true %></td>
+          </tr>
+        </table>
+        <div class="modal-body">
+          <%= f.fields_for :gourmetimages do |image_form| %>
+            <%= f.label :お店や料理画像 %>
+            <%= image_form.attachment_field :image %>
+            <%= image_form.link_to_remove "削除" %>
+          <% end %>
+        <%= f.link_to_add "画像を追加", :gourmetimages %>
+        </div>
+        <div class="modal-footer">
+
+          <button type="action" class="btn btn-medium btn-radius btn-color02 btn-hover02" >
+            <span class="btn-text">オススメ投稿</span>
+            <span class="btn-bg"></span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+$( function() {
+	$('#gourmetButton').click( function () {
+		$('#gourmetModal').modal();
+	});
+});
+</script>
+

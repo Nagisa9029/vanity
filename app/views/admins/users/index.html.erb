@@ -1,0 +1,46 @@
+
+<div class="row">
+  <div class="col-xs-9">
+  	<h1 style="font-size: 36px;">Account</h1>
+  	<hr>
+
+    <%= search_form_for @search_user do |f| %>
+      <span class="input-group">
+        <%= f.text_field :nickname_or_username_cont, :size=>"50",style: "margin: 8px 0;", placeholder: "AvatarName or UserName" %>
+        <button type="submit">
+          <a href="#"><i class="glyphicon glyphicon-search" ></i></a>
+        </button>
+      </span>
+    <% end %>
+
+    <table class = "table table-hover" style="margin-top: 0;">
+	  <thead>
+	  	<tr class="">
+	  	  <th></th>
+	  	    <th><%= sort_link(@search_user, :nickname, "AvatarName") %><br>
+	  	  	    <%= sort_link(@search_user, :username, "(UserName)") %>
+	  	    </th>
+	  	    <th>Community<br>投稿件数</th>
+	        <th>Gourmet<br>投稿件数</th>
+          <th></th>
+	  	  </tr>
+	    </thead>
+	    <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= attachment_image_tag user, :image, width: "50", height: "50", class: "img-circle", fallback: "blackNeko.png" %></td>
+            <td><%= link_to admins_user_path(user) do %>
+            	  <%= user.nickname %><br>
+            	  @<%= user.username %>
+                <% end %></td>
+            <td><%= "#{user.posts.count}" %>件</td>
+            <td><%= "#{user.gourmets.count}" %>件</td>
+            <td><%= link_to "編集", edit_admins_user_path(user) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

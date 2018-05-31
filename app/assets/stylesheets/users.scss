@@ -1,3 +1,11 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.box-user{
+  background-image: url(images/bg3.jpg);
+  margin: 2em 0;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 10px;
+}

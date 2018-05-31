@@ -1,6 +1,36 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
+  # common callback method
+  def line; ; end
+
+  def twitter
+     @user = User.create_twitter(request.env["omniauth.auth"])
+     if @user.persisted?
+       sign_in_and_redirect @user
+     else
+       session["devise.user_attributes"] = @user.attributes
+       redirect_to new_user_registration_url
+     end
+  end
+
+  def facebook
+      @user = User.create_facebook(request.env["omniauth.auth"])
+
+      if @user.persisted?
+        sign_in_and_redirect @user
+      else
+        session["devise.user_attributes"] = @user.attributes
+        redirect_to new_user_registration_url
+      end
+  end
+
+  def failure
+      redirect_to root_path
+  end
+
+
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
@@ -27,4 +57,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # def after_omniauth_failure_path_for(scope)
   #   super(scope)
   # end
+
 end

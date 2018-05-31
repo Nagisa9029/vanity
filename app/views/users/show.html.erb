@@ -1,0 +1,83 @@
+<% breadcrumb :user, @user %>
+<div class="row">
+  <div class="col-xs-9">
+  	<span style="font-size: 36px;">Account</span>
+    <% if @user.id != current_user.id %>
+      <span class="pull-right">
+        <div id="follow_form">
+          <% if current_user.following?(@user) %>
+            <%= render 'unfollow' %>
+          <% else %>
+            <%= render 'follow' %>
+          <% end %>
+        </div>
+      </span>
+    <% end %>
+  	<hr>
+
+
+    <div class="row">
+      <div class="col-xs-3">
+        <%= attachment_image_tag @user, :image, width: "150", height: "150", class: "img-circle", fallback: "blackNeko.png" %>
+      </div>
+      <div class="col-xs-9">
+        <table>
+          <tr>
+            <th>Avatar Name ：</th>
+            <td><%= @user.nickname %></td>
+          </tr>
+          <tr>
+            <th>Name ：</th>
+            <td><%= @user.username %></td>
+          </tr>
+          <tr>
+            <th>RANK ：</th>
+            <td>
+              <% if @user.platinum == true %>
+                <%= image_tag ('m.platinum.png'), width: "100" %>
+              <% elsif @user.gold == true %>
+                <%= image_tag ('m.gold.png'), width: "100" %>
+              <% elsif @user.silver == true %>
+                <%= image_tag ('m.silver.png'), width: "100" %>
+              <% elsif @user.bronze == true %>
+                <%= image_tag ('m.bronze.png'), width: "100" %>
+              <% else %>
+                <%= image_tag ('m.black.png'), width: "100" %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <% if @user.id == current_user.id %>
+      <%= @user.following.count %>following
+      <%= link_to following_user_path(@user) do %>
+        <button type="button" class="btn btn-medium btn-radius btn-color04 btn-hover04">
+          <span class="btn-text">FollowingList</span>
+          <span class="btn-bg"></span>
+        </button>
+      <% end %>
+      <br>
+      <%= @user.followers.count %>followers
+      <%= link_to followers_user_path(@user) do %>
+        <button type="button" class="btn btn-medium btn-radius btn-color04 btn-hover04">
+          <span class="btn-text">FollowersList</span>
+          <span class="btn-bg"></span>
+        </button>
+      <% end %>
+    <% end %>
+    <div class="box-user">
+      <div class="row", style="padding: 20px; background: url(images/bg3.jpg);">
+        <div class="col-xs-2">
+          <div>Profile ：</div>
+        </div>
+        <div class="col-xs-10">
+          <%= simple_format @user.profile %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

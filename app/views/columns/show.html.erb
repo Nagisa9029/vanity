@@ -1,0 +1,23 @@
+<% breadcrumb :column, @column %>
+<div class="row">
+  <div class="col-xs-9">
+  	<h1>Column</h1>
+    <hr>
+
+    <div style="border-left: 5px solid #FFC7AF;""><%= @column.created_at.strftime('%b %d, %Y') %></div>
+    <%= @column.c_category %><br>
+    <h1><%= @column.c_title %></h1><br>
+    <%= simple_format @column.c_body %>
+    <hr>
+
+    <% @columnimages.each do |columnimage| %>
+      <h3><%= columnimage.subtitle %></h3><br>
+      <%= attachment_image_tag columnimage, :image, width: "100%", height: "100%", format: 'jpeg'%><br>
+      <%= simple_format columnimage.subbody %>
+      <hr>
+    <% end %>
+
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

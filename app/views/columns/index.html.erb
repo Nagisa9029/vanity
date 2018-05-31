@@ -1,0 +1,40 @@
+<% breadcrumb :columns %>
+<div class="row">
+  <div class="col-xs-9">
+  	<h1>Columns</h1>
+  	<hr>
+
+    <% @columns.each do |column| %>
+    <div class="row">
+      <div class="col-xs-4">
+        <%= link_to column_path(id: column) do %>
+      	  <% columnimage = Columnimage.find_by(column_id: column.id) %>
+          <%= attachment_image_tag columnimage, :image, style:"width:100%;", format: 'jpeg'%>
+        <% end %>
+      </div>
+      <div class="col-xs-8">
+
+
+      <% if user_signed_in? %>
+        <% if column.loved_by?(current_user) %>
+        <% else %>
+          <span class="glyphicon glyphicon-bookmark", style="font-size: 25px; color: gold;"></span>
+          <span style="padding: 10px; color: red; font-size: 25px;">NEW</span>
+        <% end %>
+      <% end %>
+
+
+      <div style="border-left: 5px solid #FFC7AF;"><%= column.created_at.strftime('%b %d, %Y') %></div>
+        <%= column.c_category %><br>
+        <%= link_to column_path(id: column) do %>
+          <h3 style="color: black;"><%= column.c_title %></h3>
+        <% end %>
+      </div>
+    </div>
+
+
+    <hr>
+    <% end %>
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

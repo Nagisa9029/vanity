@@ -1,0 +1,91 @@
+
+<div class="row">
+  <div class="col-xs-9">
+  	<span style="font-size: 36px;">Gourmet</span>
+    <hr>
+
+
+    <div class="pull-right">
+      <%= form_for admins_gourmet_path(@gourmet), method: :delete do |f| %>
+        <%= f.submit "投稿削除", class: "btn btn-medium btn-radius" %>
+      <% end %>
+    </div>
+    <div class="g-top">
+      フレンチ<%= @gourmet.category %>
+    </div>
+    <table>
+      <tr>
+	    <th>Name : </th>
+	    <td><%= @gourmet.name %>/<%= @gourmet.name_kana %></td>
+      </tr>
+      <tr>
+	    <th>TEL： </th>
+	    <td><%= @gourmet.tel %></td>
+      </tr>
+      <tr>
+        <th>〒</th>
+        <td><%= @gourmet.postal_code %></td>
+      </tr>
+      <tr>
+        <th>Address : </th>
+        <td><%= @gourmet.address %><%= @gourmet. street %></td>
+      </tr>
+      <tr>
+        <th>URL：</th>
+        <td><%= @gourmet.url %></td>
+      </tr>
+    </table>
+    <hr>
+
+    <%= simple_format @gourmet.pr %>
+    <hr>
+    <% @gourmetimages.each do |image| %>
+      <%= attachment_image_tag image, :image, width: "150", height: "150", format: 'jpeg' %>
+    <% end %>
+
+
+    <div class="gourmetFavorite">
+      コメント<%= @gourmet.gourmetcomments.count %>件
+    </div>
+
+
+    <%= link_to admins_user_path(@gourmet.user.id) do %>
+      <%= attachment_image_tag @gourmet.user, :image, width: "50", height: "50", class: "img-circle", fallback: "blackNeko.png"  %>
+      <% if @gourmet.user.nickname? %>
+        <%= @gourmet.user.nickname %>
+      <% else %>
+        <%= @gourmet.user.username %>
+      <% end %>
+    <% end %> / 
+    <%= @gourmet.created_at.strftime('%b %d, %Y') %>
+    <hr>
+
+
+    <% @gourmet.gourmetcomments.each do |comment| %>
+      <ol>
+        <table>
+          <tr>
+            <th valign="top">
+              <%= link_to admins_user_path(comment.user.id) do %>
+                <%= attachment_image_tag comment.user, :image, width: "30", height: "30", class: "img-circle", fallback: "blackNeko.png"  %>
+              <% end %>
+            </th>
+            <td class="commentFlame">
+              <%= link_to admins_user_path(comment.user.id) do %>
+                <% if comment.user.nickname? %>
+                  <%= comment.user.nickname %>
+                <% else %>
+                  <%= comment.user.username %>
+                <% end %>
+              <% end %>
+              <%= comment.g_comment %>
+            </td>
+            <td><%= link_to "削除", admins_gourmet_gourmetcomments_path(id: comment.id, user_id: comment.user_id, gourmet_id: @gourmet.id), method: :delete  %></td>
+          </tr>
+        </table>
+      </ol>
+    <% end %>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

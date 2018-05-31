@@ -1,0 +1,47 @@
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#bookModal">
+  新規投稿
+</button>
+
+
+
+<div class="modal" id="bookModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+        <h4 class="modal-title">タイトル</h4>
+      </div>
+      <% @nouveau = Post.new %>
+      <%= nested_form_for(@book) do |f| %>
+        <div class="modal-body">
+          <%= f.label :単語 %>
+          <%= f.text_field :word %>
+        </div>
+        <div class="modal-body">
+          <%= f.label :意味 %>
+          <%= f.text_field :meaning %>
+        </div>
+        <div class="modal-body">
+          <%= f.label :解説 %>
+          <%= f.text_field :body %>
+        </div>
+        <div class="modal-body">
+          <%= f.label :資料写真 %>
+          <%= f.attachment_field :image %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+          <button type="action" class="btn btn-primary">投稿</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+$( function() {
+  $('#bookButton').click( function () {
+    $('#bookModal').modal();
+  });
+});
+</script>

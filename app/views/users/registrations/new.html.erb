@@ -1,29 +1,58 @@
-<h2>Sign up</h2>
+<% breadcrumb :Sign_up %>
+<div style="width: 60%; margin: 0 auto;">
+  <h1 style="padding:0px 50px; text-align: center;">
+    <span class="glyphicon glyphicon-lock"></span>Sign up
+  </h1>
+  <hr>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <div style="padding:20px 50px;">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <div class="field", style="margin-bottom: 20px;">
+      <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label><br>
+      <%= f.text_field :username, :size => "50", required: true %>
+    </div>
+    <div class="field">
+      <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label><br>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", :size => "50", required: true %>
+    </div>
+    <div class="field", style="margin: 20px 0;">
+      <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "off", :size => "50", required: true  %>
+    </div>
+    <div class="field">
+      <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password_confirmation</label><br>
+      <%= f.password_field :password_confirmation, autocomplete: "off", :size => "50", required: true %>
+    </div>
+
+    <input type="hidden" name="user[user_flg]" value="false">
+    <input type="hidden" name="user[bronze]" value="false">
+    <input type="hidden" name="user[silver]" value="false">
+    <input type="hidden" name="user[gold]" value="false">
+    <input type="hidden" name="user[platinum]" value="false">
+
+    <div style="border: 4px double #ddd; margin: 2em 0;">
+      必ず利用規約・個人情報保護方針に同意のうえ、<br>
+      ボタンをクリックして下さい。<br>
+      入力されたデータは SSLにより保護されます。<br>
+      <li><a href="/terms_of_use">利用規約</a></li>
+      <li><a href="/privacy">個人情報保護方針</a></li>
+    </div>
+
+
+    <button type="submit" class="btn btn-large btn-radius btn-color04 btn-hover04" >
+      <span class="btn-text">sign up</span>
+      <span class="btn-bg"></span>
+    </button><br>
+    <a class="" href="<%= new_session_path(resource_name) %>" >
+      <li class="btn-text">すでにパスワードをお持ちのお客様は　Log inへ</li>
+      <span class="btn-bg"></span>
+    </a>
+
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

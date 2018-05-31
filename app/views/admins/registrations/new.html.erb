@@ -1,29 +1,39 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<div style="width: 60%; margin: 0 auto;">
+  <h1 style="padding:0px 50px; text-align: center;">
+    <span class="glyphicon glyphicon-lock"></span>Sign up
+  </h1>
+  <hr>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div style="padding:20px 50px;">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="field">
+      <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label><br>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", :size => "50", required: true %>
+    </div>
+    <div class="field", style="margin: 20px 0;">
+      <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "off", :size => "50", required: true  %>
+    </div>
+    <div class="field", style="margin: 30px 0;">
+      <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password_confirmation</label><br>
+      <%= f.password_field :password_confirmation, autocomplete: "off", :size => "50", required: true %>
+    </div>
+
+    <button type="submit" class="btn btn-large btn-radius btn-color04 btn-hover04" >
+      <span class="btn-text">sign up</span>
+      <span class="btn-bg"></span>
+    </button><br>
+    <a class="" href="<%= new_session_path(resource_name) %>" >
+      <li class="btn-text">Log in</li>
+      <span class="btn-bg"></span>
+    </a>
+
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "admins/shared/links" %>
+</div>

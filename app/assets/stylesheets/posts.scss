@@ -1,3 +1,43 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.box-post{
+  background-image: url(images/bg3.jpg);
+  margin: 2em 0;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 10px;
+}
+.box-postbody{
+  padding: 0 20px 20px 20px;
+}
+.box-post .box-head {
+  background: #e7efff;
+  padding: 0 30px;
+  margin: 0;
+  border-radius: 10px;
+}
+.box-post .box-title{
+  border-left: 5px solid #0000EE;
+  font-size: 25px;
+  padding: 0 10px;
+  margin: 0;
+}
+.box-post p{
+
+}
+.postFavorite{
+  margin-top: 20px;
+}
+.commentFlame{
+  background: #fff;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 20px;
+}
+.p-top{
+  border-left: 5px solid #0000EE;
+  font-size: 20px;
+  padding: 0 10px;
+  margin: 0;
+}

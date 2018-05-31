@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-xs-9">
+  	<h1>new</h1>
+
+    <%= nested_form_for(@column) do |f| %>
+      <div class="">
+        <%= f.label :タイトル %><br>
+        <%= f.text_field :c_title, :size => "90" %>
+      </div>
+      <div class="">
+        <%= f.label :ジャンル %><br>
+        <%= f.select :c_category, [["恋愛", "恋愛"], ["ニュース", "ニュース"], ["暮らし", "暮らし"], ["イベント", "イベント"], ["レストラン", "レストラン"], ["レシピ", "レシピ"], ["お勧め", "お勧め"], ["その他", "その他"]] ,class:"form-control" %>
+      </div>
+      <div class="">
+        <%= f.label :コメント %><br>
+        <%= f.text_area :c_body, :size => "90x10" %>
+      </div>
+      <hr>
+        <%= f.fields_for :columnimages do |sub_form| %>
+          <div class="">
+            <%= f.label :サブテキスト %>
+            <%= sub_form.attachment_field :image %><br>
+            <%= f.label :Title %>
+            <%= sub_form.text_field :subtitle, :size => "90" %><br>
+            <%= f.label :Text %>
+            <%= sub_form.text_area :subbody, :size => "90x10" %>
+            <%= sub_form.link_to_remove "削除" %>
+            <hr>
+          </div>
+        <% end %>
+        <%= f.link_to_add "サブテキスト追加", :columnimages %>
+      <div class="">
+        <button type="button" class="btn btn-default">閉じる</button>
+        <button type="action" class="btn btn-primary">投稿</button>
+      </div>
+    <% end %>
+
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

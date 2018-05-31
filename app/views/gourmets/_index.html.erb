@@ -1,0 +1,132 @@
+<% @gourmets.each do |gourmet| %>
+  <div class="box-gourmet">
+    <div class="box-head">
+      <%= link_to user_path(gourmet.user.id) do %>
+        <%= attachment_image_tag gourmet.user, :image, width: "50", height: "50", class: "img-circle", fallback: "blackNeko.png"  %>
+        <% if gourmet.user.nickname? %>
+          <%= gourmet.user.nickname %>
+        <% else %>
+          <%= gourmet.user.username %>
+        <% end %>
+      <% end %> / 
+      <%= gourmet.created_at.strftime('%b %d, %Y') %>
+
+      <% if user_signed_in? %>
+        <% if gourmet.user == current_user %>
+          <div class="pull-right">
+            <button type="button" class="btn btn-medium btn-radius" >
+              <%= link_to "投稿削除", gourmet_path(gourmet), method: :delete  %>
+            </button>
+          </div>
+        <% else %>
+          <div class="pull-right" id="follow_form">
+            <% if current_user.following?(gourmet.user) %>
+              <%= form_for(current_user.active_relationships.find_by(following_id: gourmet.user.id), html: { method: :delete }) do |f| %>
+                <%= f.submit "Unfollow", class: "btn btn-medium btn-radius" %>
+              <% end %>
+            <% else %>
+              <%= form_for(current_user.active_relationships.build) do |f| %>
+                <div><%= hidden_field_tag :following_id, gourmet.user.id %></div>
+                <button type="action" class="btn btn-medium btn-radius btn-color04 btn-hover04">
+                  <span class="btn-text">Follow</span>
+                  <span class="btn-bg"></span>
+                </button>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+
+    <% if user_signed_in? %>
+      <% if gourmet.populared_by?(current_user) %>
+        <% popular = Popular.find_by(user_id: current_user, gourmet_id: gourmet.id) %>
+        <%= link_to popular_path(id: popular.id), method: :delete do %>
+            <span class="pull-right glyphicon glyphicon-bookmark" aria-hidden="true" style="font-size: 50px; color: gold;"></span>
+        <% end %>
+      <% else %>
+        <%= link_to add_gourmet_path(gourmet), method: :post do %>
+            <span class="pull-right glyphicon glyphicon-bookmark" aria-hidden="true" style="font-size: 50px; color: #444444;"></span>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    ジャンル ：<%= gourmet.category %>
+    <div class="box-gourmetbody">
+      <div class="box-title">
+        <%= link_to gourmet_path(gourmet) do %>
+          <%= gourmet.name %> / 
+          <%= gourmet.address %>
+        <% end %>
+      </div>
+      <p><%= simple_format gourmet.pr %></p><br>
+
+      <% gourmet.gourmetimages.each do |gourmetimage| %>
+        <%= attachment_image_tag gourmetimage, :image, width: "150", height: "150", format: 'jpeg' %>
+      <% end %><br>
+
+      <div class="gourmetFavorite">
+        <a href="#"><%= link_to "コメント#{gourmet.gourmetcomments.count} 件", gourmet_path(gourmet.id) %></a>
+        <% if user_signed_in? %>
+          <% if gourmet.gourmetfavorited_by?(current_user) %>
+            <a href="#", style="margin-left: 30px;">
+              <%= link_to gourmet_gourmetfavorites_path(gourmet), method: :delete do %>
+                <i class="fa fa-heart" aria-hidden="true">いいね</i>
+                <%= "#{gourmet.gourmetfavorites.count}" %>件
+              <% end %>
+            </a>
+          <% else %>
+            <a href="#", style="margin-left: 30px;">
+              <%= link_to gourmet_gourmetfavorites_path(gourmet), method: :post do %>
+                <i class="fa fa-heart-o" aria-hidden="true">いいね</i>
+                <%= "#{gourmet.gourmetfavorites.count}" %>件
+              <% end %>
+            </a>
+          <% end %>
+        <% end %>
+      </div>
+      <hr>
+
+      <% gourmet.gourmetcomments.each do |comment| %>
+        <ol>
+          <table>
+            <tr>
+              <th valign="top">
+                <%= link_to user_path(comment.user.id) do %>
+                  <%= attachment_image_tag comment.user, :image, width: "30", height: "30", class: "img-circle", fallback: "blackNeko.png"  %>
+                <% end %>
+              </th>
+              <td class="commentFlame">
+                <%= link_to user_path(comment.user.id) do %>
+                  <% if comment.user.nickname? %>
+                    <%= comment.user.nickname %>
+                  <% else %>
+                    <%= comment.user.username %>
+                  <% end %>
+                <% end %>
+                <%= comment.g_comment %><br>
+              </td>
+            </tr>
+          </table>
+        </ol>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <%= form_for [gourmet, @gourmetcomment] do |f| %>
+          <div class="row">
+            <div class="col-sm-12">
+              <%= f.text_area :g_comment, class: "form-control",placeholder: "コメントをここに" %>
+            </div>
+          </div>
+          <button type="action" class="btn btn-medium btn-radius btn-color02 btn-hover02">
+            <span class="btn-text">コメントする</span>
+            <span class="btn-bg"></span>
+          </button>
+        <% end %>
+      <% end %>
+
+
+    </div>
+  </div>
+<% end %>
