@@ -1,7 +1,7 @@
 class StudysController < ApplicationController
 
-  #def new
-  #end
+  def new
+  end
 
   def index
   end

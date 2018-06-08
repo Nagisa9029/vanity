@@ -20,17 +20,20 @@ before_action :update_comment, only:[:show]
   def index
       #@posts = Post.all.reverse_order
       @posts = @search_post.result.reverse_order
+      @posts = @posts.page(params[:page])
       @comment = Comment.new
   end
 
   def follower
      followers = current_user.following
      @posts = Post.where(user_id: followers ).reverse_order
+     @posts = @posts.page(params[:page])
      @comment = Comment.new
   end
 
   def mycommit
       @posts = Post.where(user_id: current_user.id).reverse_order
+      @posts = @posts.page(params[:page])
       @comment = Comment.new
   end
 

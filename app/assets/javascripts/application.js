@@ -16,8 +16,7 @@
 //= require bootstrap-sprockets
 //= require_tree .
 //= require jquery_nested_form
-
-
+//= require autonumeric
 //= humberger
 
 $(document).ready(function() {
@@ -177,39 +176,80 @@ $(function(){
   });
 });
 
-
-
-
-
-
+/*======================================================
+スライダー
+======================================================*/
 $(function(){
-window.addEventListener('DOMContentLoaded', function() {
-  var swiper = new Swiper('.home .swiper-container', {
-    pagination: '.swiper-pagination',
-    paginationClickable: true,
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-    loop: true,
-    speed: 2000,
-    autoplay: 10000,
-    spaceBetween: 10,
-    effect: 'coverflow'
-  });
-}, false);
+  window.addEventListener('DOMContentLoaded', function() {
+    var swiper = new Swiper('.home .swiper-container', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev',
+      loop: true,
+      speed: 2000,
+      autoplay: 10000,
+      spaceBetween: 10,
+      effect: 'coverflow'
+    });
+  }, false);
 });
 
 $(function(){
-window.addEventListener('DOMContentLoaded', function() {
-  var swiper = new Swiper('.sub .swiper-container', {
-    pagination: '.swiper-pagination',
-    paginationClickable: true,
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-    loop: true,
-    speed: 2000,
-    autoplay: 5000,
-    spaceBetween: 10,
-    effect: 'coverflow'
-  });
-}, false);
+  window.addEventListener('DOMContentLoaded', function() {
+    var swiper = new Swiper('.sub .swiper-container', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev',
+      loop: true,
+      speed: 2000,
+      autoplay: 5000,
+      spaceBetween: 10,
+      effect: 'coverflow'
+    });
+  }, false);
 });
+
+
+/*======================================================
+フィルタリング
+======================================================*/
+$(function(){
+    var setFilter = $('#filterBtn'),
+    filterBtn = setFilter.find('a'),
+    btnAll = $('.allItem'),
+    setList = $('#filterList'),
+    filterList = setList.find('li'),
+    listWidth = filterList.outerWidth();
+
+    filterBtn.click(function(){
+        if(!($(this).hasClass('active'))){
+            var filterClass = $(this).attr('class');
+
+            filterList.each(function(){
+                if($(this).hasClass(filterClass)){
+                    $(this).css({display:'block'}).stop().animate({width:listWidth},1500);
+                    $(this).find('*').stop().animate({opacity:'1'},1500);
+                } else {
+                    $(this).find('*').stop().animate({opacity:'0'},1000);
+                    $(this).stop().animate({width:'0'},1000,function(){
+                        $(this).css({display:'none'});
+                    });
+                }
+            });
+            filterBtn.removeClass('active');
+            $(this).addClass('active');
+        }
+    });
+
+    btnAll.click(function(){
+        filterList.each(function(){
+            $(this).css({display:'block'}).stop().animate({width:listWidth},1500);
+            $(this).find('*').stop().animate({opacity:'1'},1500);
+        });
+    });
+    btnAll.click();
+});
+
+

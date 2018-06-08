@@ -1,0 +1,48 @@
+<div class="modal" id="commonModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header", style="background: #FFCCCC;">
+        <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h3 class="title">豆知識投稿</h3>
+      </div>
+
+      <% nouveaucommon = Common.new %>
+      <%= form_for(nouveaucommon) do |f| %>
+        <table style="margin: 30px;">
+          <tr height="50">
+            <td><%= f.label :タイトル %></td>
+            <td><%= f.text_field :common_title, :size => "70", required: true %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :カテゴリー %></th>
+            <td><%= f.select :common_category, [["雑学", "雑学"], ["テーブルマナー", "テーブルマナー"], ["テイスティング", "テイスティング"], ["料理との相性", "料理との相性"], ["健康", "健康"], ["歴史", "歴史"], ["ワインの種類", "ワインの種類"], ["ラベル・ボトル", "ラベル・ボトル"], ["保存・保管", "保存・保管"]] ,class:"form-control" %>
+            </td>
+          </tr>
+          <tr height="50">
+            <th valign="top"><%= f.label :解説 %></th>
+            <td><%= f.text_area :common_body, :size => "70x10", required: true %></td>
+          </tr>
+        </table>
+        <div class="modal-body">
+          <%= f.label :イメージ画像 %>
+          <%= f.attachment_field :image, required: true %>
+        </div>
+
+        <div class="modal-footer">
+          <button type="action" class="btn btn-medium btn-radius btn-color04 btn-hover04">
+            <span class="btn-text">投稿</span>
+            <span class="btn-bg"></span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+$( function() {
+  $('#commonButton').click( function () {
+    $('#commonModal').modal();
+  });
+});
+</script>

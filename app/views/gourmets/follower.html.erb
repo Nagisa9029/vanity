@@ -16,6 +16,10 @@
 
     <%= render partial: "gourmets/index" %>
 
+    <div style="text-align: center;">
+      <%= paginate @gourmets, class: "pagenate" %>
+    </div>
+
   </div>
   <%= render partial: "layouts/sidebar" %>
 </div>

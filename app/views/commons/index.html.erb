@@ -1,0 +1,32 @@
+<% breadcrumb :commons %>
+<div class="row">
+  <div class="col-xs-9">
+  	<h1 style="font-size: 36px;">思わず話したくなる豆知識</h1>
+  	<hr>
+
+    <div id="filterBtn">
+      <a href="javascript:void(0)" class="allItem"><button class="active btn btn-medium btn-radius">ALL</button></a>
+      <a href="javascript:void(0)" class="雑学"><button class="btn btn-medium btn-radius">雑学</button></a>
+      <a href="javascript:void(0)" class="健康"><button class="btn btn-medium btn-radius">健康</button></a>
+      <a href="javascript:void(0)" class="歴史"><button class="btn btn-medium btn-radius">歴史</button></a>
+      <a href="javascript:void(0)" class="ワインの種類"><button class="btn btn-medium btn-radius">ワインの種類</button></a>
+      <a href="javascript:void(0)" class="ラベル・ボトル"><button class="btn btn-medium btn-radius">ラベル・ボトル</button></a>
+      <a href="javascript:void(0)" class="テーブルマナー"><button class="btn btn-medium btn-radius">テーブルマナー</button></a>
+      <a href="javascript:void(0)" class="テイスティング"><button class="btn btn-medium btn-radius">テイスティング</button></a>
+      <a href="javascript:void(0)" class="料理との相性"><button class="btn btn-medium btn-radius">料理との相性</button></a>
+      <a href="javascript:void(0)" class="保存・保管"><button class="btn btn-medium btn-radius">保存・保管</button></a>
+    </div>
+
+
+    <div id="filterList" style="font-size: 15px;">
+      <ul>
+        <% @commons.each do |common| %>
+          <%= link_to common_path(common) do %>
+          <li class="<%= common.common_category %>"><%= attachment_image_tag common, :image, width: "180", height: "180", format: 'jpeg' %><%= common.common_title %></li><% end %>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

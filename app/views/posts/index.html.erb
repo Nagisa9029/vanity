@@ -2,6 +2,8 @@
 <div class="row">
   <div class="col-xs-9">
     <span style="font-size: 36px;">Community</span>
+
+    <% if user_signed_in? %>
     <span class="pull-right">
       <a class="btn btn-medium btn-radius btn-color01 btn-hover01" href="#" data-toggle="modal" data-target="#postModal">
         <span class="btn-text">新規つぶやき</span>
@@ -12,9 +14,14 @@
         <span class="btn-bg"></span>
       </a>
     </span>
+    <% end %>
     <hr>
 
   <%= render partial: "posts/index" %>
+
+    <div style="text-align: center;">
+      <%= paginate @posts, class: "pagenate" %>
+    </div>
 
   </div>
   <%= render partial: "layouts/sidebar" %>

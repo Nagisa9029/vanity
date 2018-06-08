@@ -2,6 +2,8 @@
 <div class="row">
   <div class="col-xs-9">
     <span style="font-size: 36px;">Community</span>
+
+    <% if user_signed_in? %>
     <span class="pull-right">
       <a class="btn btn-medium btn-radius btn-color01 btn-hover01" href="#" data-toggle="modal" data-target="#postModal">
         <span class="btn-text">新規つぶやき</span>
@@ -12,6 +14,7 @@
         <span class="btn-bg"></span>
       </a>
     </span>
+    <% end %>
     <hr>
 
     <div class="p-top">
@@ -49,8 +52,9 @@
     <%= link_to user_path(@post.user) do %>
       <%= @post.user.username %><br>
     <% end %>
-    <%= @post.p_body %><br>
     <%= @post.p_title %><br>
+    <%= simple_format @post.p_body %><br>
+
 
     <% @postimages.each do |postimage| %>
       <%= attachment_image_tag postimage, :image, width: "200", height: "200" %>
@@ -95,7 +99,7 @@
                   <%= comment.user.username %>
                 <% end %>
               <% end %>
-              <%= comment.post_comment %><br>
+              <%= simple_format comment.post_comment %><br>
             </td>
           </tr>
         </table>

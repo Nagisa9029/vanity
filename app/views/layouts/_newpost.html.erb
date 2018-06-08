@@ -3,8 +3,9 @@
     <div class="modal-content">
       <div class="modal-header", style="background: #e7efff;">
         <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-        <h4 class="title">新規つぶやき</h4>
+        <h3 class="title">新規つぶやき</h3>
       </div>
+
       <% nouveaupost = Post.new %>
       <%= nested_form_for(nouveaupost) do |f| %>
         <table style="margin: 30px;">
@@ -21,16 +22,16 @@
             <td><%= f.text_area :p_body, :size => "70x10", required: true %></td>
           </tr>
         </table>
-          <%= f.fields_for :postimages do |image_form| %>
-            <div class="modal-body">
-              <%= image_form.attachment_field :image %>
-              <%= image_form.link_to_remove "削除" %>
-            </div>
-          <% end %>
-          <%= f.link_to_add "画像を追加", :postimages %>
-        <div class="modal-footer">
+        <%= f.fields_for :postimages do |image_form| %>
+          <div class="modal-body">
+            <%= image_form.attachment_field :image %>
+            <%= image_form.link_to_remove "削除" %>
+          </div>
+        <% end %>
+        <%= f.link_to_add "画像を追加", :postimages %>
 
-          
+
+        <div class="modal-footer">
           <button type="action" class="btn btn-medium btn-radius btn-color01 btn-hover01">
             <span class="btn-text">投稿</span>
             <span class="btn-bg"></span>

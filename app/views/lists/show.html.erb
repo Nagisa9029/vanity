@@ -1,0 +1,68 @@
+<% breadcrumb :root %>
+<div class="row">
+  <div class="col-xs-9">
+  	<span style="font-size: 36px;">Wine List</span>
+
+    <% if user_signed_in? %>
+      <span class="pull-right">
+        <a class="btn btn-medium btn-radius btn-color01 btn-hover01" href="#" data-toggle="modal" data-target="#listModal">
+          <span class="btn-text">新規ワイン投稿</span>
+          <span class="btn-bg"></span>
+        </a>
+      </span>
+    <% end %>
+    <hr>
+
+
+    <div class="row">
+      <div class="col-xs-4">
+        <ul id="sample">
+          <% @listimages.each do |listimage| %>
+            <li><%= attachment_image_tag listimage, :image %></li>
+          <% end %>
+        </ul>
+        <ul id="sample2">
+	      <% @listimages.each do |listimage| %>
+            <li><a data-slide-index="<%= listimage.id %>" href="#"><%= attachment_image_tag listimage, :image %></a></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="col-xs-8">
+        <h3><%= @list.winename %></h3>
+        <p><%= @list.o_winename %></p>
+        <%= @list.country %> / <%= @list.aoc %><br>
+        <table style="font-size: 16px; margin-top: 30px;">
+          <tr>
+            <th valign="top">作り手</th>
+            <td><%= @list.domaine %><br>
+                <%= @list.o_domaine %>
+            </td>
+          </tr>
+          <tr>
+  	        <th>ヴィンテージ</th>
+  	        <td><%= @list.vintage.strftime('%Y') %></td>
+          </tr>
+          <tr>
+  	        <th>タイプ</th>
+  	        <td><%= @list.category %></td>
+          </tr>
+          <tr>
+  	        <th>品種</th>
+    	    <td><%= @list.sepage %></td>
+          </tr>
+          <tr>
+  	        <th>飲んだ場所場所　</th>
+  	        <td><%= @list.region %></td>
+          </tr>
+          <tr>
+            <th>飲んだシーン</th>
+            <td><%= @list.scene %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    テイスティングコメント : <%= simple_format @list.comment %><br>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

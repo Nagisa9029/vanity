@@ -2,6 +2,8 @@
 <div class="row">
   <div class="col-xs-9">
   	<span style="font-size: 36px;">Gourmets</span>
+
+    <% if user_signed_in? %>
     <span class="pull-right">
       <a class="btn btn-medium btn-radius btn-color02 btn-hover02" href="#" data-toggle="modal" data-target="#gourmetModal">
         <span class="btn-text">オススメ投稿</span>
@@ -12,9 +14,14 @@
         <span class="btn-bg"></span>
       </a>
     </span>
+    <% end %>
     <hr>
 
     <%= render partial: "gourmets/index" %>
+
+    <div style="text-align: center;">
+      <%= paginate @gourmets, class: "pagenate" %>
+    </div>
 
   </div>
   <%= render partial: "layouts/sidebar" %>

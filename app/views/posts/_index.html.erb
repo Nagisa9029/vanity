@@ -74,29 +74,37 @@
       </div>
       <hr>
 
-      <% post.comments.each do |comment| %>
-        <ol>
-          <table>
-            <tr>
-              <th valign="top">
-                <%= link_to user_path(comment.user.id) do %>
-                  <%= attachment_image_tag comment.user, :image, width: "30", height: "30", class: "img-circle", fallback: "blackNeko.png"  %>
-                <% end %>
-              </th>
-              <td class="commentFlame">
-                <%= link_to user_path(comment.user.id) do %>
-                  <% if comment.user.nickname? %>
-                    <%= comment.user.nickname %>
-                  <% else %>
-                    <%= comment.user.username %>
-                  <% end %>
-                <% end %>
-                <%= comment.post_comment %><br>
-              </td>
-            </tr>
-          </table>
-        </ol>
-      <% end %>
+
+
+      <div class="grad-wrap">
+        <input id="<%= post.id %>" class="grad-trigger" type="checkbox">
+        <label class="grad-btn" for="<%= post.id %>">コメントを表示</label>
+        <div class="grad-item">
+          <% post.comments.each do |comment| %>
+            <ol>
+              <table>
+                <tr>
+                  <th valign="top">
+                    <%= link_to user_path(comment.user.id) do %>
+                      <%= attachment_image_tag comment.user, :image, width: "30", height: "30", class: "img-circle", fallback: "blackNeko.png"  %>
+                    <% end %>
+                  </th>
+                  <td class="commentFlame">
+                    <%= link_to user_path(comment.user.id) do %>
+                      <% if comment.user.nickname? %>
+                        <%= comment.user.nickname %>
+                      <% else %>
+                        <%= comment.user.username %>
+                      <% end %>
+                    <% end %>
+                    <%= simple_format comment.post_comment %><br>
+                  </td>
+                </tr>
+              </table>
+            </ol>
+          <% end %>
+        </div>
+      </div>
 
       <% if user_signed_in? %>
         <%= form_for [post, @comment] do |f| %>

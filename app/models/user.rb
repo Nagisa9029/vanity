@@ -21,6 +21,9 @@ class User < ApplicationRecord
   has_many :gourmets, through: :populars
   has_many :contacts
   has_many :commons
+  has_many :lists
+  has_many :listlovers, dependent: :destroy
+
 
 
   # 現在のユーザーがフォローしてたらtrueを返す
@@ -53,13 +56,13 @@ class User < ApplicationRecord
    user
    end
 
-   def self.new_with_session(params, session)
-      if session["devise.user_attributes"]
-        new(session["devise.user_attributes"]) do |user|
-        user.attributes = params
-        end
-      else
-        super
-      end
-   end
+   #def self.new_with_session(params, session)
+   #   if session["devise.user_attributes"]
+   #     new(session["devise.user_attributes"]) do |user|
+   #     user.attributes = params
+   #     end
+   #   else
+   #     super
+   #   end
+   #end
 end

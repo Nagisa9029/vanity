@@ -1,13 +1,49 @@
-<%= search_form_for @search do |f| %>
-  <span class="input-group">
-    <%= f.text_field :word_or_body_cont, :size=>"40",style: "margin: 8px 0;", placeholder: "検索なんでも" %>
-    <button type="submit">
-      <a href="/books" target="_blank"><i class="glyphicon glyphicon-search" ></i></a>
-    </button>
-  </span>
-<% end %>
-<% @books.each do |book| %>
-  <label>単語: </label><%= book.word %><br>
-  <label>簡易版: </label><%= book.meaning %><br>
-  label>簡易版: </label><%= book.body %><br>
-<% end %>
+<% breadcrumb :books %>
+<div class="row">
+  <div class="col-xs-9">
+  	<h1 style="font-size: 36px;">Dictionary</h1>
+  	<hr>
+
+    <%= search_form_for @search_book do |f| %>
+      <span class="input-group">
+        <%= f.text_field :word_or_original_word_cont, :size=>"40",style: "margin: 8px 0;", placeholder: "フリーワード検索" %>
+        <button type="submit">
+          <i class="glyphicon glyphicon-search" ></i>
+        </button>
+      </span>
+    <% end %>
+
+
+    <table class = "table table-hover" style="margin-top: 0;">
+      <thead>
+        <tr>
+          <th><%= sort_link(@search_book, :word, "単語") %><br>
+              <%= sort_link(@search_book, :original_word, "原語表記") %></th>
+          <th width="150">カテゴリー</th>
+          <th>意味</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @books.each do |book| %>
+          <tr>
+            <td>
+              <%= link_to book_path(book) do %>
+                <%= book.word %><br>
+                <%= book.original_word %>
+              <% end %>
+            </td>
+            <td><%= book.category %></td>
+            <td><%= book.meaning %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div style="text-align: center;">
+      <%= paginate @books, class: "pagenate" %>
+    </div>
+
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

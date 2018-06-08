@@ -4,9 +4,8 @@
     <title>Vanity</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body class="drawer drawer--right">
@@ -86,13 +85,32 @@
             <nav>
               <ul class="nav">
                 <li class="nav-item">
-                  <a class="nav-title js−accordion" href="#">My Account</a>
+                  <a class="nav-title js−accordion" href="#">User Account</a>
                   <ul class="panel js−accordion-panel">
-                    <li class="panel-item"><a href="/users/<%= current_user.id %>">アカウント詳細</a></li>
-                    <li class="panel-item"><a href="/users/<%= current_user.id %>/edit">アカウント編集</a></li>
+                    <li class="panel-item"><a href="/users/<%= current_user.id %>">Myアカウント詳細</a></li>
+                    <li class="panel-item"><a href="/users/<%= current_user.id %>/edit">Myアカウント編集</a></li>
                     <li class="panel-item"><a href="/users/">グルメユーザー検索</a></li>
                   </ul>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-title js−accordion" href="#">Wine List</a>
+                  <ul class="panel js−accordion-panel">
+                    <li class="panel-item" data-toggle="modal" data-target="#listModal"><a href="#">Myワイン投稿</a></li>
+                    <li class="panel-item"><a href="#">Myワインリスト</a></li>
+                    <li class="panel-item"><a href="#">気になるワインリスト</a></li>
+                    <li class="panel-item"><a href="/lists/">ワインリスト検索</a></li>
+                  </ul>
+                </li>
+                <% if current_user.user_flg == true %>
+                <li class="nav-item">
+                  <a class="nav-title js−accordion" href="#">Document</a>
+                  <ul class="panel js−accordion-panel">
+                    <li class="panel-item" data-toggle="modal" data-target="#columnModal"><a href="#">コラム投稿</a></li>
+                    <li class="panel-item" data-toggle="modal" data-target="#commonModal"><a href="#">豆知識投稿</a></li>
+                  </ul>
+                </li>
+                <% end %>
+
                 <li class="nav-item">
                   <a class="nav-title js−accordion" href="#">
                     <% if totalP_count != 0 %>
@@ -102,7 +120,7 @@
                     My Community
                   </a>
                   <ul class="panel js−accordion-panel">
-                    <li class="panel-item"  data-toggle="modal" data-target="#postModal"><a href="#">新規投稿</a></li>
+                    <li class="panel-item" data-toggle="modal" data-target="#postModal"><a href="#">新規投稿</a></li>
                     <li class="panel-item">
                       <a href="/posts/mycommit">
                         <% if totalP_count != 0 %>
@@ -125,7 +143,7 @@
                     My Gourmet
                   </a>
                   <ul class="panel js−accordion-panel">
-                    <li class="panel-item"  data-toggle="modal" data-target="#gourmetModal"><a href="#">オススメ投稿</a></li>
+                    <li class="panel-item" data-toggle="modal" data-target="#gourmetModal"><a href="#">オススメ投稿</a></li>
                     <li class="panel-item">
                       <a href="/gourmets/mycommit">
                         <% if totalG_count != 0 %>
@@ -143,7 +161,7 @@
                 <li class="nav-item">
                   <a class="nav-title js−accordion" href="#">My Contact</a>
                   <ul class="panel js−accordion-panel">
-                    <li class="panel-item"  data-toggle="modal" data-target="#contactModal" data-recipient="管理者"><a href="#">管理者(ソムリエ)へ質問</a></li>
+                    <li class="panel-item" data-toggle="modal" data-target="#contactModal" data-recipient="管理者"><a href="#">管理者(ソムリエ)へ質問</a></li>
                     <li class="panel-item"><a href="/contacts">My質問リスト</a></li>
                   </ul>
                 </li>
@@ -308,21 +326,36 @@
 
 
     <footer class="site-footer">
-      <div class="container footer-text">
+      <div class="container footer-text", style="color: #FAFAFA;">
         <div class="">
-          <div class="col-xs-4", style='background: red;'>
-          <p><%= link_to "恋愛", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"恋愛", "commit"=>"Search" }}) %></p>
-          <p><%= link_to "ニュース", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"ニュース", "commit"=>"Search" }}) %></p>
-          <p><%= link_to "暮らし", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"暮らし", "commit"=>"Search" }}) %></p>
-          <p><%= link_to "イベント", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"イベント", "commit"=>"Search" }}) %></p>
-          <p><%= link_to "レストラン", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"レストラン", "commit"=>"Search" }}) %></p>
-          <p><%= link_to "レシピ", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"レシピ", "commit"=>"Search" }}) %></p>
-          <p><%= link_to "お勧め", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"お勧め", "commit"=>"Search" }}) %></p>
-          <p><%= link_to "その他", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"その他", "commit"=>"Search" }}) %></p>
+          <div class="col-xs-4">
+            <div style="font-size: 35px; margin-bottom: 30px;">
+              Columns Category
+            </div>
+            <p><%= link_to "・恋愛", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"恋愛", "commit"=>"Search" }}) %></p>
+            <p><%= link_to "・ニュース", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"ニュース", "commit"=>"Search" }}) %></p>
+            <p><%= link_to "・暮らし", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"暮らし", "commit"=>"Search" }}) %></p>
+            <p><%= link_to "・イベント", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"イベント", "commit"=>"Search" }}) %></p>
+            <p><%= link_to "・レストラン", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"レストラン", "commit"=>"Search" }}) %></p>
+            <p><%= link_to "・レシピ", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"レシピ", "commit"=>"Search" }}) %></p>
+            <p><%= link_to "・お勧め", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"お勧め", "commit"=>"Search" }}) %></p>
+            <p><%= link_to "・その他", columns_path({"utf8"=>"✓", "q"=>{"c_category"=>"その他", "commit"=>"Search" }}) %></p>
           </div>
           <div class="col-xs-4">
+            <div style="font-size: 35px; margin-bottom: 30px;">
+              Main Menu
+            </div>
+            <p><%= link_to "Community", posts_path %></p>
+            <p><%= link_to "Gourmet", gourmets_path %></p>
+            <p><%= link_to "Column", columns_path %></p>
+            <p><%= link_to "Study", studys_path %></p>
+            <p><%= link_to "Wine List", lists_path %></p>
+            <p><%= link_to "Dictionary", books_path %></p>
+            <p><%= link_to "話したくなる豆知識", commons_path %></p>
+            <p><%= link_to "ワイン品種一覧", books_sepage_path %></p>
           </div>
-          <div class="col-xs-4", style='background: red;'>
+          <div class="col-xs-4", style="margin-top: 150px;">
+            <%= image_tag ('footer.png'), width: "350", height: "200" %>
           </div>
         </div>
       </div>
@@ -349,9 +382,9 @@
           <dd>
             <%= search_form_for @search_book do |f| %>
               <span class="input-group">
-                <%= f.text_field :word_cont, :size=>"33",style: "margin: 8px 0;", placeholder: "チョコっとカンニング(( _ _ ))..zzzZZ" %>
+                <%= f.text_field :word_or_original_word_cont, :size=>"33",style: "margin: 8px 0;", placeholder: "チョコっとカンニング(( _ _ ))..zzzZZ" %>
                 <button type="submit" formtarget="_blank">
-                  <a href="/books" target="_blank"><i class="glyphicon glyphicon-search" ></i></a>
+                  <i class="glyphicon glyphicon-search" ></i>
                 </button> 
               </span>
             <% end %>
@@ -362,6 +395,9 @@
 
 
   <!-- 各新規投稿フォーム　-->
+  <%= render partial: "layouts/newlist", nouveaulist: @nouveaulist %>
+  <%= render partial: "layouts/newcolumn", nouveaucolumn: @nouveaucolumn %>
+  <%= render partial: "layouts/newcommon", nouveaucommon: @nouveaucommon %>
   <%= render partial: "layouts/newpost", nouveaupost: @nouveaupost %>
   <%= render partial: "layouts/newgourmet", nouveaugourmet: @nouveaugourmet %>
   <%= render partial: "layouts/newcontact", newcontact: @newcontact %>

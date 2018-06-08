@@ -38,6 +38,10 @@
       </tbody>
     </table>
 
+    <div style="text-align: center;">
+      <%= paginate @posts, class: "pagenate" %>
+    </div>
+
   </div>
   <%= render partial: "layouts/sidebar" %>
 </div>
