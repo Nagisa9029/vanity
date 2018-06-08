@@ -1,3 +1,18 @@
 // Place all the styles related to the commons controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.box-commontitle{
+  border-left: 5px solid #FF4F02;
+  font-size: 25px;
+  padding: 0 10px;
+  margin: 0;
+}
+.box-commonbody{
+  padding: 20px 20px 20px 20px;
+}
+.box-commonname{
+  text-align: right;
+  margin-bottom: 30px;
+}

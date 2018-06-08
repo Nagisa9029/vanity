@@ -1,0 +1,102 @@
+<div class="modal" id="listModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header", style="background: #FFEEFF;">
+        <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title">Wine List</h4>
+      </div>
+
+      <% nouveaulist = List.new %>
+      <%= nested_form_for(nouveaulist) do |f| %>
+        <table style="margin: 30px;">
+          <tr height="50">
+            <th><%= f.label :ワイン名 %></th>
+            <td><%= f.text_field :winename, :size => "70", required: true %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :原語ワイン名 %></th>
+            <td><%= f.text_field :o_winename, :size => "70" %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :ドメーヌ %></th>
+            <td><%= f.text_field :domaine, :size => "70" %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :原語ドメーヌ %></th>
+            <td><%= f.text_field :o_domaine, :size => "70" %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :ヴィンテージ %></th>
+            <td><%= f.date_select(:vintage,
+                       start_year: 1900,
+                       end_year:   (Time.now.year),
+                       :discard_month => true) %>
+            </td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :タイプ %></th>
+            <td><%= f.select :category, [["----", "----"], ["赤", "赤"], ["白", "白"], ["スパークリング", "スパークリング"], ["ロゼ", "ロゼ"], ["シェリー", "シェリー"], ["ポート", "ポート"], ["マディラ", "マディラ"], ["ノンアルコール", "ノンアルコール"], ["その他", "その他"]] ,class:"form-control" %>
+            </td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :国 %></th>
+            <td><%= f.select :country, [["----", "----"], ["フランス", "フランス"], ["イタリア", "イタリア"], ["アメリカ", "アメリカ"], ["ドイツ", "ドイツ"], ["チリ", "チリ"], ["スペイン", "スペイン"], ["ニュージーランド", "ニュージーランド"], ["オーストラリア", "オーストラリア"], ["アルゼンチン", "アルゼンチン"], ["日本", "日本"], ["その他", "その他"]] ,class:"form-control" %>
+            </td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :"産地(AOC)" %></th>
+            <td><%= f.text_field :aoc %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :品種 %></th>
+            <td><%= f.text_field :sepage, :size => "70" %></td>
+          </tr>
+    <!--  <tr height="50">
+            <th><%= f.label :レストラン価格 %></th>
+            <td><%= f.text_field :r_price, data: { autonumeric: { aSign: '¥ ', mDec: 0 } } %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :ショップ価格 %></th>
+            <td><%= f.text_field :s_price, data: { autonumeric: { aSign: '¥ ', mDec: 0 } } %></td>
+          </tr>  -->
+          <tr height="50">
+            <th><%= f.label :飲んだ場所場所 %></th>
+            <td><%= f.text_field :region %></td>
+          </tr>
+          <tr height="50">
+            <th><%= f.label :飲んだシーン %></th>
+            <td><%= f.text_field :scene %></td>
+          </tr>
+          <tr height="50">
+            <th align="top"><%= f.label :テイスティングコメント %></th>
+            <td><%= f.text_area :comment, :size => "70x10" %></td>
+          </tr>
+        </table>
+
+        <%= f.fields_for :listimages do |image_form| %>
+          <div class="modal-body">
+            <%= image_form.attachment_field :image %>
+            <%= image_form.link_to_remove "削除" %>
+          </div>
+        <% end %>
+        <%= f.link_to_add "画像を追加", :listimages %>
+
+
+        <div class="modal-footer">
+          <button type="action" class="btn btn-medium btn-radius btn-color04 btn-hover04" >
+            <span class="btn-text">ワイン投稿</span>
+            <span class="btn-bg"></span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+$( function() {
+  $('#listButton').click( function () {
+    $('#listModal').modal();
+  });
+});
+</script>

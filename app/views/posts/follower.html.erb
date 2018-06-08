@@ -16,6 +16,10 @@
 
   <%= render partial: "posts/index" %>
 
+    <div style="text-align: center;">
+      <%= paginate @posts, class: "pagenate" %>
+    </div>
+
   </div>
   <%= render partial: "layouts/sidebar" %>
 </div>

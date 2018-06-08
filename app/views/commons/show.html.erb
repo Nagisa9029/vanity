@@ -1,0 +1,22 @@
+<% breadcrumb :common, @common %>
+<div class="row">
+  <div class="col-xs-9">
+  	<h1 style="font-size: 36px;">思わず話したくなる豆知識</h1>
+  	<hr>
+
+    テーマ：<%= @common.common_category %><br>
+    <span class="box-commontitle"><%= @common.common_title %></span>
+    <span class="pull-right"><%= attachment_image_tag @common, :image, height: "250", format: 'jpeg' %></span>
+
+    <div class="box-commonbody"><%= simple_format @common.common_body %></div>
+    <div class="box-commonname">
+    <% if @common.user.nickname? %>
+      by <%= @common.user.nickname %>
+    <% else %>
+      by <%= @common.user.username %>
+    <% end %></div>
+
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

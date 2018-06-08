@@ -70,6 +70,26 @@ crumb :column do |column|
   parent :columns
 end
 
+crumb :commons do
+  link 'Common', commons_path
+end
+crumb :common do |common|
+  link "ID@#{common.id}", common_path(common)
+  parent :commons
+end
+
+crumb :books do
+  link 'Dictionary', books_path
+end
+crumb :book do |book|
+  link "#{book.word}", book_path(book)
+  parent :books
+end
+crumb :sepage do |sepage|
+  link "Cepage", books_sepage_path
+  parent :books
+end
+
 crumb :contacts do
   link 'Contact', contacts_path
 end

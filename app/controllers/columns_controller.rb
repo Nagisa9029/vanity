@@ -1,17 +1,17 @@
 class ColumnsController < ApplicationController
 before_action :authenticate_user!, only:[:new]
 before_action :create_love, only:[:show]
-  def new
-    @column = Column.new
-  end
+  #def new
+  #  @column = Column.new
+  #end
 
   def create
-    @column = Column.new(column_params)
-    @column.user_id = current_user.id
-    if  @column.save
-        columnimage = @column.columnimages.build
+    @nouveaucolumn = Column.new(column_params)
+    @nouveaucolumn.user_id = current_user.id
+    if  @nouveaucolumn.save
+        columnimage = @nouveaucolumn.columnimages.build
         columnimage.save
-        redirect_to column_path(@column.id)
+        redirect_to column_path(@nouveaucolumn.id)
     else
         @user = Column.find(current_user.id)
         @columns = Column.all
@@ -22,6 +22,7 @@ before_action :create_love, only:[:show]
   def index
     #@columns = Column.all.reverse_order
     @columns = @search_column.result.reverse_order
+    @columns = @columns.page(params[:page])
   end
 
   def show
@@ -42,6 +43,7 @@ before_action :create_love, only:[:show]
   end
 
   def edit
+      @column = Column.find(params[:id])
   end
 
   def update

@@ -28,7 +28,7 @@
           <tr>
             <td><%= gourmet.created_at.strftime('%b %d, %Y') %></td>
             <td>
-              <%= link_to post_path(gourmet) do %>
+              <%= link_to gourmet_path(gourmet) do %>
                 <%= gourmet.name %>
               <% end %>
             </td>
@@ -37,6 +37,10 @@
         <% end %>
       </tbody>
     </table>
+
+    <div style="text-align: center;">
+      <%= paginate @gourmets, class: "pagenate" %>
+    </div>
 
   </div>
   <%= render partial: "layouts/sidebar" %>

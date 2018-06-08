@@ -1,0 +1,62 @@
+<% breadcrumb :root %>
+<div class="row">
+  <div class="col-xs-9">
+  	<span style="font-size: 36px;">Wine List</span>
+
+    <% if user_signed_in? %>
+      <span class="pull-right">
+        <a class="btn btn-medium btn-radius btn-color01 btn-hover01" href="#" data-toggle="modal" data-target="#listModal">
+          <span class="btn-text">新規ワイン投稿</span>
+          <span class="btn-bg"></span>
+        </a>
+      </span>
+    <% end %>
+    <hr>
+
+    <%= search_form_for @search_list do |f| %>
+      <span class="input-group">
+        <%= f.text_field :winename_cont, :size=>"50",style: "margin: 8px 0;", placeholder: "WineName" %>
+        <button type="submit">
+          <a href="#"><i class="glyphicon glyphicon-search" ></i></a>
+        </button>
+      </span>
+    <% end %>
+
+
+    
+
+      <table class = "table table-hover" style="margin-top: 0;">
+        <thead>
+          <tr>
+          	<th></th>
+            <th>ワイン名<br>
+                原語表記</th>
+          	<th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @lists.each do |list| %>
+          <tr>
+          	<td><%= link_to list_path(id: list) do %>
+                  <% listimage = Listimage.find_by(list_id: list.id) %>
+                  <%= attachment_image_tag listimage, :image, width: "100", format: 'jpeg'%>
+                <% end %>
+            </td>
+            <td><%= link_to list_path(id: list) do %>
+                  <%= list.winename %> <br>
+                  <%= list.o_winename %></td>
+                <% end %>
+          	<td></td>
+          </tr>
+         <% end %>
+        </tbody>
+      </table>
+
+
+    <div style="text-align: center;">
+      <%= paginate @lists, class: "pagenate" %>
+    </div>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

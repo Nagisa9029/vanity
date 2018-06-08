@@ -4,6 +4,50 @@
   	<hr>
 
 
+      <%= nested_form_for(@column) do |f| %>
+        <table style="margin: 30px;">
+          <tr height="50">
+            <td><%= f.label :タイトル %></td>
+            <td><%= f.text_field :c_title, :size => "70" %></td>
+          </tr>
+          <tr height="50">
+            <td><%= f.label :ジャンル %></td>
+            <td><%= f.select :c_category, [["恋愛", "恋愛"], ["ニュース", "ニュース"], ["暮らし", "暮らし"], ["イベント", "イベント"], ["レストラン", "レストラン"], ["レシピ", "レシピ"], ["お勧め", "お勧め"], ["その他", "その他"]] ,class:"form-control" %>
+            </td>
+          </tr>
+          <tr height="50">
+            <td valign="top"><%= f.label :コメント %></td>
+            <td><%= f.text_area :c_body, :size => "70x10" %></td>
+          </tr>
+        </table>
+
+
+          <%= f.fields_for :columnimages do |second| %>
+            <div class="modal-body">
+              <h3>サブテキスト</h3><%= second.link_to_remove "削除" %>
+            </div>
+            <div class="modal-body">
+              <%= second.attachment_field :image %>
+            </div>
+            <div class="modal-body">
+              <%= f.label :Title %>
+              <%= second.text_field :subtitle, :size => "70" %>
+            </div>
+            <div class="modal-body">
+              <%= f.label :Text %>
+              <%= second.text_area :subbody, :size => "70x10" %>
+            </div>
+          <% end %>
+          <%= f.link_to_add "サブテキスト追加", :columnimages %>
+
+
+          <div class="modal-footer">
+          <button type="action" class="btn btn-medium btn-radius btn-color04 btn-hover04" >
+            <span class="btn-text">コラム投稿</span>
+            <span class="btn-bg"></span>
+          </button>
+          </div>
+      <% end %>
 
 
 

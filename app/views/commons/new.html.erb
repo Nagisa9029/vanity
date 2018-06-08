@@ -1,2 +1,47 @@
-<h1>Commons#new</h1>
-<p>Find me in app/views/commons/new.html.erb</p>
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#commonModal">
+  新規投稿
+</button>
+
+
+
+<div class="modal" id="commonModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+        <h4 class="modal-title">豆知識投稿</h4>
+      </div>
+
+      <%= form_for(@common) do |f| %>
+        <div class="modal-body">
+          <%= f.label :タイトル %>
+          <%= f.text_field :common_title, required: true %>
+        </div>
+        <div class="modal-body">
+          <%= f.label :カテゴリー %>
+          <%= f.select :common_category, [["雑学", "雑学"], ["テーブルマナー", "テーブルマナー"], ["テイスティング", "テイスティング"], ["料理との相性", "料理との相性"], ["健康", "健康"], ["歴史", "歴史"], ["ワインの種類", "ワインの種類"], ["ラベル・ボトル", "ラベル・ボトル"], ["保存・保管", "保存・保管"]] ,class:"form-control" %>
+        </div>
+        <div class="modal-body">
+          <%= f.label :解説 %>
+          <%= f.text_area :common_body, required: true %>
+        </div>
+        <div class="modal-body">
+          <%= f.label :イメージ画像 %>
+          <%= f.attachment_field :image, required: true %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+          <button type="action" class="btn btn-primary">投稿</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+$( function() {
+  $('#commonButton').click( function () {
+    $('#commonModal').modal();
+  });
+});
+</script>

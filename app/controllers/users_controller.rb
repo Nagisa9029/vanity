@@ -5,6 +5,7 @@ before_action :authenticate_user!
     #@users = User.all.reverse_order
     @search_user = User.search(params[:q])
     @users = @search_user.result.reverse_order
+    @users = @users.page(params[:page])
   end
 
   def show

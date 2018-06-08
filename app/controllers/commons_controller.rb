@@ -1,22 +1,29 @@
 class CommonsController < ApplicationController
 
   def new
-    @book = Book.new
+    @common = Common.new
   end
 
   def create
-    @book = Book.new(book_params)
-    @book.save
-    redirect_to book_path(@book.id)
+    @nouveaucommon = Common.new(common_params)
+    @nouveaucommon.user_id = current_user.id
+    if @nouveaucommon.save
+       redirect_to common_path(id: @nouveaucommon.id)
+    else
+       redirect_to commons_path
+       @commons = Common.all
+       render :index
+    end
   end
 
   def index
-    #@books = Book.all.reverse_order
-    @books = @search_book.result.reverse_order
+    @commons = Common.all.reverse_order
+    #@search_common = Common.search(params[:q])
+    #@commons = @search_common.result.reverse_order
   end
 
   def show
-    @book = Book.find(params[:id])
+    @common = Common.find(params[:id])
   end
 
   def edit

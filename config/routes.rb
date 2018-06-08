@@ -50,17 +50,21 @@ Rails.application.routes.draw do
     resource :loves, only: [:create]
   end
 
-  resources :studys, only: [:index]
+  resources :lists do
+    resource :listlovers, only: [:create, :destroy]
+  end
+
+  resources :studys, only: [:new, :index]
   get '/studys/bronze' => 'bronze'
   get '/studys/silver' => 'silver'
   get '/studys/gold' => 'gold'
-  get '/studys/gold' => 'platinum'
+  get '/studys/platinum' => 'platinum'
 
   resources :contacts, only: [:create, :update, :index, :show]
 
+  get '/books/sepage' => 'books#sepage'
   resources :commons
   resources :books
-  get '/books/sepage' => 'books#sepage'
 
   namespace :admins do
     resources :users, only: [:index, :show, :edit, :update, :destroy]

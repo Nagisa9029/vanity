@@ -21,17 +21,20 @@ before_action :update_gourmetcomment, only:[:show]
   def index
       #@gourmets = Gourmet.all.reverse_order
       @gourmets = @search_gourmet.result.reverse_order
+      @gourmets = @gourmets.page(params[:page])
       @gourmetcomment = Gourmetcomment.new
   end
 
   def follower
      followers = current_user.following
      @gourmets = Gourmet.where(user_id: followers ).reverse_order
+     @gourmets = @gourmets.page(params[:page])
      @gourmetcomment = Gourmetcomment.new
   end
 
   def mycommit
       @gourmets = Gourmet.where(user_id: current_user.id).reverse_order
+      @gourmets = @gourmets.page(params[:page])
       @gourmetcomment = Gourmetcomment.new
   end
 
@@ -56,6 +59,7 @@ before_action :update_gourmetcomment, only:[:show]
   end
 
   def edit
+      @gourmet = Gourmet.find(params[:id])
   end
 
   def update

@@ -38,28 +38,33 @@
       <% end %>
     </div>
 
-
-    <% if user_signed_in? %>
-      <% if gourmet.populared_by?(current_user) %>
-        <% popular = Popular.find_by(user_id: current_user, gourmet_id: gourmet.id) %>
-        <%= link_to popular_path(id: popular.id), method: :delete do %>
-            <span class="pull-right glyphicon glyphicon-bookmark" aria-hidden="true" style="font-size: 50px; color: gold;"></span>
-        <% end %>
-      <% else %>
-        <%= link_to add_gourmet_path(gourmet), method: :post do %>
-            <span class="pull-right glyphicon glyphicon-bookmark" aria-hidden="true" style="font-size: 50px; color: #444444;"></span>
-        <% end %>
-      <% end %>
-    <% end %>
-
-    ジャンル ：<%= gourmet.category %>
     <div class="box-gourmetbody">
-      <div class="box-title">
-        <%= link_to gourmet_path(gourmet) do %>
-          <%= gourmet.name %> / 
-          <%= gourmet.address %>
-        <% end %>
+      <div class="row">
+        <div class="col-xs-11">
+          ジャンル ：<%= gourmet.category %>
+          <div class="box-title">
+            <%= link_to gourmet_path(gourmet) do %>
+              <%= gourmet.name %> / 
+            <%= gourmet.address %>
+          <% end %>
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <% if user_signed_in? %>
+            <% if gourmet.populared_by?(current_user) %>
+              <% popular = Popular.find_by(user_id: current_user, gourmet_id: gourmet.id) %>
+              <%= link_to popular_path(id: popular.id), method: :delete do %>
+                <span class="glyphicon glyphicon-bookmark" aria-hidden="true" style="font-size: 50px; color: gold;"></span>
+              <% end %>
+            <% else %>
+              <%= link_to add_gourmet_path(gourmet), method: :post do %>
+                <span class="glyphicon glyphicon-bookmark" aria-hidden="true" style="font-size: 50px; color: #444444;"></span>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
+
       <p><%= simple_format gourmet.pr %></p><br>
 
       <% gourmet.gourmetimages.each do |gourmetimage| %>
@@ -88,29 +93,37 @@
       </div>
       <hr>
 
-      <% gourmet.gourmetcomments.each do |comment| %>
-        <ol>
-          <table>
-            <tr>
-              <th valign="top">
-                <%= link_to user_path(comment.user.id) do %>
-                  <%= attachment_image_tag comment.user, :image, width: "30", height: "30", class: "img-circle", fallback: "blackNeko.png"  %>
-                <% end %>
-              </th>
-              <td class="commentFlame">
-                <%= link_to user_path(comment.user.id) do %>
-                  <% if comment.user.nickname? %>
-                    <%= comment.user.nickname %>
-                  <% else %>
-                    <%= comment.user.username %>
-                  <% end %>
-                <% end %>
-                <%= comment.g_comment %><br>
-              </td>
-            </tr>
-          </table>
-        </ol>
-      <% end %>
+
+      <div class="grad-wrap">
+        <input id="<%= gourmet.id %>" class="grad-trigger" type="checkbox">
+        <label class="grad-btn" for="<%= gourmet.id %>">コメントを表示</label>
+        <div class="grad-item">
+          <% gourmet.gourmetcomments.each do |comment| %>
+            <ol>
+              <table>
+                <tr>
+                  <th valign="top">
+                    <%= link_to user_path(comment.user.id) do %>
+                      <%= attachment_image_tag comment.user, :image, width: "30", height: "30", class: "img-circle", fallback: "blackNeko.png"  %>
+                    <% end %>
+                  </th>
+                  <td class="commentFlame">
+                    <%= link_to user_path(comment.user.id) do %>
+                      <% if comment.user.nickname? %>
+                        <%= comment.user.nickname %>
+                      <% else %>
+                        <%= comment.user.username %>
+                      <% end %>
+                    <% end %>
+                    <%= simple_format comment.g_comment %><br>
+                  </td>
+                </tr>
+              </table>
+            </ol>
+          <% end %>
+        </div>
+      </div>
+
 
       <% if user_signed_in? %>
         <%= form_for [gourmet, @gourmetcomment] do |f| %>

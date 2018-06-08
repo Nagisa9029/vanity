@@ -2,6 +2,8 @@
 <div class="row">
   <div class="col-xs-9">
   	<span style="font-size: 36px;">Gourmet</span>
+
+    <% if user_signed_in? %>
     <span class="pull-right">
       <a class="btn btn-medium btn-radius btn-color02 btn-hover02" href="#" data-toggle="modal" data-target="#gourmetModal">
         <span class="btn-text">オススメ投稿</span>
@@ -12,6 +14,7 @@
         <span class="btn-bg"></span>
       </a>
     </span>
+    <% end %>
     <hr>
 
 
@@ -139,7 +142,7 @@
                   <%= comment.user.username %>
                 <% end %>
               <% end %>
-              <%= comment.g_comment %>
+              <%= simple_format comment.g_comment %>
             </td>
           </tr>
         </table>

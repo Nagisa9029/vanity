@@ -1,0 +1,21 @@
+<% breadcrumb :book, @book %>
+<div class="row">
+  <div class="col-xs-9">
+  	<h1 style="font-size: 36px;">Dictionary</h1>
+  	<hr>
+
+    <div class="row">
+    <span class="box-booktitle"><%= @book.word %> / <%= @book.original_word %>
+    </span>
+    <span class="pull-right"><%= attachment_image_tag @book, :image, height: "250" %>
+    </span>
+    <br>
+    <%= @book.category %><br>
+    <%= @book.meaning %>
+    </div>
+
+    <div class="box-bookbody"><%= simple_format @book.body %></div>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

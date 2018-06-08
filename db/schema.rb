@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180530164654) do
+ActiveRecord::Schema.define(version: 20180603151217) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20180530164654) do
     t.text "body"
     t.text "image_id"
     t.string "category"
+    t.string "original_word"
   end
 
   create_table "columnimages", force: :cascade do |t|
@@ -145,6 +146,44 @@ ActiveRecord::Schema.define(version: 20180530164654) do
     t.boolean "g_flg"
     t.integer "user_id"
     t.index ["user_id"], name: "index_gourmets_on_user_id"
+  end
+
+  create_table "listimages", force: :cascade do |t|
+    t.text "image_id"
+    t.integer "list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_listimages_on_list_id"
+  end
+
+  create_table "listlovers", force: :cascade do |t|
+    t.integer "list_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_listlovers_on_list_id"
+    t.index ["user_id"], name: "index_listlovers_on_user_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "winename"
+    t.string "o_winename"
+    t.string "category"
+    t.string "aoc"
+    t.string "sepage"
+    t.string "region"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "scene"
+    t.date "vintage"
+    t.integer "r_price"
+    t.integer "s_price"
+    t.string "domaine"
+    t.string "o_domaine"
+    t.text "comment"
+    t.string "country"
+    t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
   create_table "loves", force: :cascade do |t|

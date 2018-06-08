@@ -6,13 +6,13 @@
 
     <% @columns.each do |column| %>
     <div class="row">
-      <div class="col-xs-4">
+      <div class="col-xs-3">
         <%= link_to column_path(id: column) do %>
       	  <% columnimage = Columnimage.find_by(column_id: column.id) %>
           <%= attachment_image_tag columnimage, :image, style:"width:100%;", format: 'jpeg'%>
         <% end %>
       </div>
-      <div class="col-xs-8">
+      <div class="col-xs-9">
 
 
       <% if user_signed_in? %>
@@ -31,9 +31,12 @@
         <% end %>
       </div>
     </div>
-
-
     <hr>
+
+    <div style="text-align: center;">
+      <%= paginate @columns, class: "pagenate" %>
+    </div>
+
     <% end %>
   </div>
   <%= render partial: "layouts/sidebar" %>

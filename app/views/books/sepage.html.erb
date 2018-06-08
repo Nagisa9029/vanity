@@ -1,0 +1,47 @@
+<% breadcrumb :sepage %>
+<div class="row">
+  <div class="col-xs-9">
+  	<h1 style="font-size: 36px;">ワインぶどう品種一覧</h1>
+  	<hr>
+
+    <div class="sepage-body">
+      <div class="sepage-title">白ワイン品種</div>
+      <table class = "table table-hover" style="margin-top: 0;">
+        <% @biancos.each do |bianco| %>
+          <tr>
+            <td width="280">
+              <%= link_to book_path(bianco) do %>
+                <%= bianco.word %><br>
+                <%= bianco.original_word %><br>
+                <%= attachment_image_tag bianco, :image, height: "150" %>
+              <% end %>
+            </td>
+            <td><%= bianco.meaning %></td>
+          </tr>
+        <% end %>
+      </table>
+      <hr>
+    </div>
+
+    <div class="sepage-body">
+      <div class="sepage-title">赤ワイン品種</div>
+      <table class = "table table-hover" style="margin-top: 0;">
+        <% @rossos.each do |rosso| %>
+          <tr>
+            <td width="280">
+              <%= link_to book_path(rosso) do %>
+                <%= rosso.word %><br>
+                <%= rosso.original_word %><br>
+                <%= attachment_image_tag rosso, :image, height: "150" %>
+              <% end %>
+            </td>
+            <td><%= rosso.meaning %></td>
+          </tr>
+        <% end %>
+      </table>
+      <hr>
+    </div>
+
+  </div>
+  <%= render partial: "layouts/sidebar" %>
+</div>

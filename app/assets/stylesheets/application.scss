@@ -97,12 +97,12 @@ body {
   top: 65px;
 }
 .sidbar-menu{
-  font-family: 'SignPainter','Segoe Script','Party LET',sans-serif;
-  margin: 120px 0 0 25px;
-  font-size: 45px;
+  font-family: 'Chalkduster', 'Segoe Script','Party LET',sans-serif;
+  margin: 130px 0 0 25px;
+  font-size: 37px;
 }
 .sidmenu-item {
-  color: #fff;
+  color: #FAF9F9;
   width: 100%;
   padding: 0 0;
   box-sizing: border-box;
@@ -237,7 +237,7 @@ body {
   text-indent:1em;
 }
 
-/*ボタン設定*/
+///////*ボタン設定*////////
 .btn {
   display: inline-block;
   position: relative;
@@ -245,9 +245,10 @@ body {
   cursor: pointer;
   -webkit-transition: all 0.3s;
           transition: all 0.3s;
-  border: 1px solid #000000;
-  margin: 7px 0 0px 20px;
+  border: 1px solid #ddd;
+  margin: 7px 0 10px 20px;
   overflow: hidden;
+  font-size: 18px;
 }
 .btn.btn-smole{
     width: 90px;
@@ -484,4 +485,59 @@ body {
   }
 }
 
+///////*フィルタリング*////////
 
+#filterBtn {
+  padding-bottom: 30px;
+}
+#filterList ul {
+  margin: 0 auto;
+  text-align: center;
+}
+#filterList ul li {
+  margin: 5px;
+  width: 190px;
+  height: 230px;
+  float: left;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+
+///////*クリックオープン機能*////////
+.grad-btn {
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+          transition: all 0.3s;
+  border: 1px solid #ddd;
+  margin: 7px 0 10px 20px;
+  overflow: hidden;
+  font-size: 18px;
+}
+.grad-item {
+  position: relative;
+  overflow: hidden;
+  height: 80px; /*隠した状態の高さ*/
+}
+.grad-item::before {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px; /*グラデーションで隠す高さ*/
+  background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.9) 50%, #fff 100%);
+  background: linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.9) 50%, #fff 100%);
+  content: "";
+}
+.grad-trigger {
+  display: none; /*チェックボックスは常に非表示*/
+}
+.grad-trigger:checked + .grad-btn {
+  display: none; /*チェックされていたら、grad-btnを非表示にする*/
+}
+.grad-trigger:checked ~ .grad-item {
+  height: auto; /*チェックされていたら、高さを戻す*/
+}
+.grad-trigger:checked ~ .grad-item::before {
+  display: none; /*チェックされていたら、grad-itemのbeforeを非表示にする*/
+}

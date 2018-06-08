@@ -9,21 +9,29 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-        <h4 class="modal-title">タイトル</h4>
+        <h4 class="modal-title">辞書投稿</h4>
       </div>
-      <% @nouveau = Post.new %>
-      <%= nested_form_for(@book) do |f| %>
+
+      <%= form_for(@book) do |f| %>
         <div class="modal-body">
           <%= f.label :単語 %>
-          <%= f.text_field :word %>
+          <%= f.text_field :word, required: true %>
+        </div>
+        <div class="modal-body">
+          <%= f.label :原語表記 %>
+          <%= f.text_field :original_word %>
+        </div>
+        <div class="modal-body">
+          <%= f.label :カテゴリー %>
+          <%= f.select :category, [["ーー", "ーー"], ["ワイン用語", "ワイン用語"], ["赤ワイン品種", "赤ワイン品種"], ["白ワイン品種", "白ワイン品種"], ["産地", "産地"], ["その他", "その他"]] ,class:"form-control" %>
         </div>
         <div class="modal-body">
           <%= f.label :意味 %>
-          <%= f.text_field :meaning %>
+          <%= f.text_area :meaning, required: true %>
         </div>
         <div class="modal-body">
           <%= f.label :解説 %>
-          <%= f.text_field :body %>
+          <%= f.text_area :body, required: true %>
         </div>
         <div class="modal-body">
           <%= f.label :資料写真 %>

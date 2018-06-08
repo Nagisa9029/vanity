@@ -12,9 +12,9 @@
 
 投稿日　：<%= @contact.created_at.strftime('%b %d, %Y') %><br>
 Title：<%= @contact.contact_name %><br>
-    質問内容：<%= @contact.question %><br>
+    質問内容：<%= simple_format @contact.question %><br>
         回答：<%= @contact.updated_at.strftime('%b %d, %Y') %><br>
-             <%= @contact.re_question %>
+             <%= simple_format @contact.re_question %>
 
 
 
